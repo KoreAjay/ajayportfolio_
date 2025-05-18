@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajay Kore - Portfolio</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url('bag.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    nav {
+      background: rgba(0, 171, 234, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    nav h1 {
+      color: #fff;
+      font-size: 1.8rem;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      height: 2px;
+      width: 0;
+      background: #ffeb3b;
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffeb3b;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeInUp 1s ease-in;
+    }
+
+    h2 {
+      color: #ffeb3b;
+      font-size: 2rem;
+      border-bottom: 3px solid #ffc107;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #e0e0e0;
+    }
+
+    .project {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    input, textarea {
+      padding: 0.9rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    input:focus, textarea:focus {
+      outline: 2px solid #00c853;
+    }
+
+    button {
+      background: #00c853;
+      color: #fff;
+      border: none;
+      padding: 0.9rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #64dd17;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    .social-icons {
+      margin-top: 1rem;
+    }
+
+    .social-icons a {
+      color: #ffeb3b;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: transform 0.2s;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+
+    .profile-section {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .profile-icon {
+      text-align: center;
+      animation: popIn 1s ease;
+    }
+
+    .profile-icon img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid #00e5ff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+      transition: transform 0.5s ease, filter 0.5s ease;
+      filter: hue-rotate(0deg);
+    }
+
+    .profile-icon img:hover {
+      transform: rotate(5deg) scale(1.1);
+      filter: hue-rotate(90deg) brightness(1.2);
+      box-shadow: 0 0 30px #00e5ff, 0 0 50px #ffeb3b;
+    }
+
+    .reflect-title {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      color: #ffeb3b;
+      transition: all 0.4s ease;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .reflect-title:hover {
+      transform: scale(1.1);
+      color: #00e5ff;
+      text-shadow: 0 0 20px #00e5ff, 0 0 30px #ffeb3b;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        padding-top: 1rem;
+      }
+
+      nav ul li {
+        width: 100%;
+      }
+
+      nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>Ajay Kore</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Profile Image Section -->
+  <div class="profile-section">
+    <div class="profile-icon">
+      <img src="Profile.jpg" alt="Ajay Kore Profile">
+      <h3 class="reflect-title">Ajay Kore</h3>
+    </div>
+  </div>
+
+  <section id="home">
+    <h2>Welcome</h2>
+    <p>Hello! I'm <strong>Ajay Kore</strong>, a passionate developer skilled in Java, C#, HTML, CSS, MySQL, and more. Explore my projects and feel free to connect with me.</p>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+
+    <div class="project">
+      <h3>🏢 Building Management System</h3>
+      <p>A complete web-based system for managing tenants, rent, complaints, and notifications using ASP.NET and SQL Server.</p>
+      <a href="https://github.com/yourusername/building-management" target="_blank">
+        <i class="fab fa-github"></i> GitHub Repository
+      </a>
+    </div>
+
+    <div class="project">
+      <h3>📦 Grocery Store Management</h3>
+      <p>Designed a dynamic inventory and billing system for local stores using Java Swing and MySQL.</p>
+      <a href="https://github.com/KoreAjay/ONLINE_GROCERY_MANAGEMENT_SYSTEM" target="_blank">
+        <i class="fab fa-github"></i> GitHub Repository
+      </a>
+    </div>
+
+    <div class="project">
+      <h3>🎓 Student Management System</h3>
+      <p>A web portal to manage college Student Data, and student entry using AWT/JDBC.</p>
+      <a href="https://github.com/KoreAjay/Student-Management-System" target="_blank">
+        <i class="fab fa-github"></i> GitHub Repository
+      </a>
+    </div>
+
+    <div class="project">
+      <h3>🎓 CampusConnect</h3>
+      <p>A web portal to manage college events, notices, and student feedback using JSP/Servlets.</p>
+      <a href="https://github.com/yourusername/campusconnect" target="_blank">
+        <i class="fab fa-github"></i> GitHub Repository
+      </a>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Ajay Kore | All rights reserved.</p>
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/ajay-kore-23767a258/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/KoreAjay" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.hackerrank.com/profile/AJAY_KORE" target="_blank"><i class="fab fa-hackerrank"></i></a>
+    </div>
+  </footer>
+
+</body>
+</html>
