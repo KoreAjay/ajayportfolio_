@@ -10,168 +10,132 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root {
-  --bg:#0a0a0a;
-  --card:#151515;
+:root{
+  --bg:#0b0f19;
+  --card:#121826;
   --text:#ffffff;
-  --muted:#9ca3af;
-  --accent:#00ffff;
+  --muted:#9aa4b2;
+  --accent:#00e5ff;
 }
-
-body.light {
+body.light{
   --bg:#ffffff;
-  --card:#f2f2f2;
-  --text:#111111;
+  --card:#f2f4f8;
+  --text:#111;
   --muted:#555;
   --accent:#0077ff;
 }
-
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
   font-family:Inter,sans-serif;
   background:var(--bg);
   color:var(--text);
 }
 
-/* ---------- GLOBAL ---------- */
-.container { max-width:1200px; margin:auto; padding:0 20px; }
-section { padding:90px 0; }
-h2 { text-align:center; font-size:2.5rem; margin-bottom:50px; }
-.reveal { opacity:0; transform:translateY(40px); transition:.8s; }
-.reveal.active { opacity:1; transform:none; }
+/* Layout */
+.container{max-width:1200px;margin:auto;padding:0 20px}
+section{padding:100px 0}
+h2{text-align:center;font-size:2.6rem;margin-bottom:60px}
 
-/* ---------- HEADER ---------- */
-header {
-  position:fixed;
-  top:0; width:100%;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(10px);
+/* Header */
+header{
+  position:fixed;top:0;width:100%;
+  background:rgba(11,15,25,.75);
+  backdrop-filter:blur(12px);
   z-index:1000;
 }
-nav {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+nav{
+  display:flex;justify-content:space-between;align-items:center;
   padding:15px 0;
 }
-.logo {
-  font-weight:800;
-  font-size:1.5rem;
-}
-.logo span { color:var(--accent); }
-nav ul { list-style:none; display:flex; gap:30px; }
-nav a {
-  text-decoration:none;
-  color:var(--muted);
-}
-nav a:hover { color:var(--accent); }
-.toggle {
-  cursor:pointer;
-  color:var(--accent);
-  font-size:1.2rem;
-}
+.logo{font-size:1.6rem;font-weight:800}
+.logo span{color:var(--accent)}
+nav ul{display:flex;gap:30px;list-style:none}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--accent)}
+.toggle{cursor:pointer;font-size:1.2rem;color:var(--accent)}
 
-/* ---------- HERO ---------- */
-.hero {
+/* Hero */
+.hero{
   min-height:100vh;
-  display:flex;
-  align-items:center;
+  display:flex;align-items:center;
 }
-.hero-content {
-  max-width:600px;
-}
-.hero h1 {
-  font-size:3.5rem;
-}
-.hero h1 span { color:var(--accent); }
-.typing {
-  font-size:1.6rem;
-  color:var(--muted);
-  margin:20px 0;
-}
-.btn {
+.hero h1{font-size:3.8rem}
+.hero h1 span{color:var(--accent)}
+.typing{font-size:1.6rem;color:var(--muted);margin:20px 0}
+.hero p{max-width:600px}
+.btn{
   display:inline-block;
-  padding:12px 30px;
+  padding:14px 35px;
   background:var(--accent);
   color:#000;
   border-radius:50px;
-  font-weight:600;
+  font-weight:700;
+  margin-top:25px;
   text-decoration:none;
-  margin-top:20px;
 }
 
-/* ---------- STATS ---------- */
-.stats {
+/* Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:.9s}
+.reveal.active{opacity:1;transform:none}
+
+/* Stats */
+.stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:30px;
-  text-align:center;
+  gap:40px;text-align:center;
 }
-.stats h3 {
-  font-size:3rem;
-  color:var(--accent);
-}
+.stats h3{font-size:3.2rem;color:var(--accent)}
 
-/* ---------- SKILLS ---------- */
-.skills-grid {
+/* Cards */
+.grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:35px;
 }
-.card {
+.card{
   background:var(--card);
   padding:30px;
-  border-radius:16px;
+  border-radius:18px;
   transition:.4s;
 }
-.card:hover {
+.card:hover{
   transform:translateY(-10px);
-  box-shadow:0 0 30px rgba(0,255,255,.3);
+  box-shadow:0 0 35px rgba(0,229,255,.35);
 }
 
-/* ---------- PROJECTS ---------- */
-.project-card {
-  position:relative;
-  overflow:hidden;
+/* Timeline */
+.timeline{
+  border-left:3px solid var(--accent);
+  padding-left:30px;
 }
-.project-card::after {
-  content:"View Details →";
-  position:absolute;
-  inset:0;
-  background:rgba(0,255,255,.08);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.2rem;
-  opacity:0;
-  transition:.4s;
-}
-.project-card:hover::after { opacity:1; }
+.timeline-item{margin-bottom:40px}
+.timeline-item h4{color:var(--accent)}
+.timeline-item span{color:var(--muted);font-size:.9rem}
 
-/* ---------- CONTACT ---------- */
-form input, form textarea {
+/* Contact */
+form input,form textarea{
   width:100%;
   padding:15px;
   margin-bottom:15px;
   background:var(--card);
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   color:var(--text);
 }
 
-/* ---------- FOOTER ---------- */
-footer {
-  padding:30px 0;
+/* Footer */
+footer{
   text-align:center;
-  border-top:1px solid #333;
+  padding:30px 0;
+  border-top:1px solid #222;
   color:var(--muted);
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* Responsive */
 @media(max-width:768px){
-  nav ul { display:none; }
-  .hero h1 { font-size:2.5rem; }
+  nav ul{display:none}
+  .hero h1{font-size:2.6rem}
 }
 </style>
 </head>
@@ -179,147 +143,170 @@ footer {
 <body>
 
 <header>
-  <div class="container">
-    <nav>
-      <div class="logo">Ajay <span>Kore</span></div>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="toggle" id="toggle"><i class="fas fa-moon"></i></div>
-    </nav>
-  </div>
+<div class="container">
+<nav>
+<div class="logo">Ajay <span>Kore</span></div>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#experience">Experience</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+<div class="toggle" id="toggle"><i class="fas fa-moon"></i></div>
+</nav>
+</div>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="container hero-content reveal">
-    <h1>Hi, I'm <span>Ajay Kore</span></h1>
-    <div class="typing" id="typing"></div>
-    <p>I build modern, scalable and high-performance web applications.</p>
-    <a href="#projects" class="btn">View Projects</a>
-  </div>
+<div class="container reveal">
+<h1>Full Stack <span>Developer</span></h1>
+<div class="typing" id="typing"></div>
+<p>
+MCA graduate with hands-on experience in full-stack web development,
+performance optimization, and scalable application design.
+</p>
+<a href="#projects" class="btn">View Work</a>
+</div>
 </section>
 
 <!-- STATS -->
 <section>
-  <div class="container stats reveal">
-    <div><h3>10+</h3><p>Projects</p></div>
-    <div><h3>2+</h3><p>Internships</p></div>
-    <div><h3>500+</h3><p>Commits</p></div>
-  </div>
+<div class="container stats reveal">
+<div><h3>2+</h3><p>Internships</p></div>
+<div><h3>10+</h3><p>Projects</p></div>
+<div><h3>20%</h3><p>Performance Boost</p></div>
+</div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="container reveal">
-    <h2>About Me</h2>
-    <p>
-      MCA graduate and Full Stack Developer with strong skills in Java,
-      Web Technologies and MySQL. Passionate about clean code, UI/UX
-      and scalable systems.
-    </p>
-  </div>
+<div class="container reveal">
+<h2>About Me</h2>
+<p>
+I am Ajay Shivputra Kore, a Full Stack Developer from Pune with strong
+expertise in Java, PHP (Laravel), MySQL, ASP.NET, and modern web technologies.
+I enjoy solving real-world problems and building efficient, scalable systems.
+</p>
+</div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container reveal">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="card">Java, JavaScript</div>
-      <div class="card">HTML, CSS, Bootstrap</div>
-      <div class="card">MySQL, Databases</div>
-      <div class="card">Cybersecurity Basics</div>
-    </div>
-  </div>
+<!-- EXPERIENCE -->
+<section id="experience">
+<div class="container reveal">
+<h2>Experience</h2>
+<div class="timeline">
+
+<div class="timeline-item">
+<h4>Full Stack Developer Intern – SETTribe IT Solutions</h4>
+<span>Jun 2025 – Oct 2025 | Pune</span>
+<p>
+Built and maintained full-stack modules, improved load speed by 15–20%,
+fixed critical bugs, and optimized database queries for better performance.
+</p>
+</div>
+
+<div class="timeline-item">
+<h4>Web Developer Intern – Leometric Technology</h4>
+<span>Dec 2025 – Present</span>
+<p>
+Working on live projects using HTML, CSS, JavaScript, PHP, Laravel,
+and MySQL. Developed responsive pages and backend modules.
+</p>
+</div>
+
+</div>
+</div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="container reveal">
-    <h2>Projects</h2>
-    <div class="skills-grid">
-      <div class="card project-card">
-        <h3>Full Stack Internship</h3>
-        <p>Java + MySQL web applications.</p>
-      </div>
-      <div class="card project-card">
-        <h3>Code Clause</h3>
-        <p>Software development & problem solving.</p>
-      </div>
-      <div class="card project-card">
-        <h3>Bharat Intern</h3>
-        <p>Frontend UI & responsive design.</p>
-      </div>
-    </div>
-  </div>
+<div class="container reveal">
+<h2>Projects</h2>
+<div class="grid">
+
+<div class="card">
+<h3>Sair Karo – Travel Booking System</h3>
+<p>
+A full-stack travel booking platform for train, bus, and flight tickets
+with user-friendly UI and secure database handling.
+</p>
+<strong>Tech:</strong> PHP, MySQL, HTML, CSS, JS, Bootstrap
+</div>
+
+<div class="card">
+<h3>E-Commerce Application</h3>
+<p>
+Built during MCA with product management, authentication, and
+responsive UI for real-world usage.
+</p>
+</div>
+
+<div class="card">
+<h3>Banking Application</h3>
+<p>
+Implemented balance inquiry, fund transfers, and secure user flows
+using Java and SQL.
+</p>
+</div>
+
+</div>
+</div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="container reveal">
-    <h2>Contact Me</h2>
-    <form onsubmit="event.preventDefault();alert('Message Sent!')">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Message" required></textarea>
-      <button class="btn">Send</button>
-    </form>
-  </div>
+<div class="container reveal">
+<h2>Contact</h2>
+<form onsubmit="event.preventDefault();alert('Message Sent Successfully!')">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Email" required>
+<textarea placeholder="Message" required></textarea>
+<button class="btn">Send Message</button>
+</form>
+<p style="margin-top:20px">
+📍 Hinjewadi, Pune <br>
+📧 ajaykore45@gmail.com <br>
+📞 +91 8446617631
+</p>
+</div>
 </section>
 
 <footer>
-  <p>© 2026 Ajay Kore | Full Stack Developer</p>
+<p>© 2026 Ajay Kore | Full Stack Developer</p>
 </footer>
 
-<!-- LIBRARIES -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-
+<!-- Scripts -->
 <script>
-// VANTA BACKGROUND
-VANTA.NET({
-  el:".hero",
-  color:0x00ffff,
-  backgroundColor:0x0a0a0a
-});
-
-// TYPING EFFECT
-const roles=["Full Stack Developer","Java Developer","Web Engineer","Problem Solver"];
-let r=0,c=0;
-const typing=document.getElementById("typing");
-
+/* Typing */
+const roles=[
+"Java Full Stack Developer",
+"PHP & Laravel Developer",
+"ASP.NET Developer",
+"Problem Solver"
+];
+let i=0,j=0;const t=document.getElementById("typing");
 function type(){
-  if(c<roles[r].length){
-    typing.textContent+=roles[r][c++];
-    setTimeout(type,100);
-  } else setTimeout(erase,1500);
+if(j<roles[i].length){t.textContent+=roles[i][j++];setTimeout(type,100);}
+else setTimeout(erase,1500);
 }
 function erase(){
-  if(c>0){
-    typing.textContent=roles[r].substring(0,--c);
-    setTimeout(erase,50);
-  } else {
-    r=(r+1)%roles.length;
-    setTimeout(type,300);
-  }
+if(j>0){t.textContent=roles[i].substring(0,--j);setTimeout(erase,50);}
+else{i=(i+1)%roles.length;setTimeout(type,300);}
 }
 type();
 
-// SCROLL REVEAL
-const reveals=document.querySelectorAll(".reveal");
-const obs=new IntersectionObserver(e=>{
-  e.forEach(i=>i.isIntersecting && i.target.classList.add("active"));
+/* Reveal */
+const r=document.querySelectorAll(".reveal");
+const o=new IntersectionObserver(e=>{
+e.forEach(x=>x.isIntersecting&&x.target.classList.add("active"));
 },{threshold:.2});
-reveals.forEach(r=>obs.observe(r));
+r.forEach(x=>o.observe(x));
 
-// DARK MODE
+/* Dark Mode */
 document.getElementById("toggle").onclick=()=>{
-  document.body.classList.toggle("light");
+document.body.classList.toggle("light");
 };
 </script>
 
