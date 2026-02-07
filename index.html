@@ -3,687 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajay Kore | Full Stack Engineer Portfolio</title>
-    <!-- Tailwind CSS for rapid, modern styling -->
+    <title>Ajay Kore | Engineering OS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans for a premium look -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Inter:wght@400;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        
         :root {
-            --accent: #22d3ee;
-            --secondary: #8b5cf6;
-            --bg: #020617;
+            --neon-blue: #00f2ff;
+            --neon-purple: #bc13fe;
+            --bg-dark: #050505;
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: #f1f5f9;
+            background-color: var(--bg-dark);
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* Glassmorphism Effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-        .hero-gradient {
-            background: radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.12) 0%, transparent 70%);
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent), var(--secondary));
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 40px rgba(34, 211, 238, 0.4);
-            transform: translateY(-3px);
-        }
-
-        #vanta-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .magnetic-card {
-            transition: transform 0.1s ease-out;
-            transform-style: preserve-3d;
-        }
-
-        .skill-matrix-card {
+        .glass-panel {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
 
-        .skill-matrix-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-8px);
-            background: rgba(34, 211, 238, 0.05);
+        .glass-panel:hover {
+            border-color: rgba(0, 242, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.05);
         }
 
-        .project-card:hover .project-image-glow {
-            opacity: 1;
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            opacity: 0.6;
         }
 
-        /* Animated Progress Bars for Skill Metrics */
-        .progress-bar {
-            height: 4px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 2px;
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--neon-blue), transparent);
+            position: absolute;
+            animation: scan 4s linear infinite;
+            opacity: 0.1;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .profile-container {
+            position: relative;
+            width: 280px;
+            height: 320px;
+        }
+
+        .profile-frame {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 15% 100%, 0 85%);
+            background: rgba(0, 242, 255, 0.05);
             overflow: hidden;
-            margin-top: 8px;
         }
-        .progress-fill {
+
+        .profile-img {
+            width: 100%;
             height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 1.5s ease-in-out;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(110%);
+            mix-blend-mode: luminosity;
+            transition: all 0.5s ease;
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+        .profile-container:hover .profile-img {
+            filter: grayscale(0%) contrast(100%);
+            mix-blend-mode: normal;
+            transform: scale(1.05);
         }
-        .animate-pulse-slow { animation: pulse-slow 4s infinite; }
+
+        .corner-tag {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            background: var(--neon-blue);
+            color: black;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 4px 10px;
+            font-family: 'JetBrains Mono';
+            transform: rotate(-2deg);
+            z-index: 20;
+        }
+
+        .bento-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(0, 242, 255, 0.1), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .bento-card:hover::before { opacity: 1; }
+
+        .nav-link {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .skill-tag:hover {
+            background: rgba(0, 242, 255, 0.1);
+            border-color: var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        .project-badge {
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--neon-blue);
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            font-family: 'JetBrains Mono';
+        }
+
+        .hackerrank-icon svg {
+            fill: currentColor;
+        }
     </style>
 </head>
-<body>
+<body class="antialiased">
+    <canvas id="bg-canvas"></canvas>
+    <div class="scanline"></div>
 
-    <!-- Floating Navigation -->
-    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-[1000] w-[92%] max-w-6xl glass px-6 py-4 flex justify-between items-center shadow-2xl">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-violet-500 flex items-center justify-center font-black text-white text-xs">AK</div>
-            <div class="text-lg font-extrabold tracking-tighter uppercase hidden sm:block">AJAY<span style="color: var(--accent)">.KORE</span></div>
-        </div>
-        <div class="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-[0.25em]">
-            <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
-            <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
-            <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
-            <a href="#contact" class="hover:text-cyan-400 transition-colors">Contact</a>
-        </div>
-        <div class="flex items-center gap-4">
-            <span id="nav-clock" class="text-[11px] font-bold opacity-40 tabular-nums hidden sm:block">00:00:00</span>
-            <a href="mailto:ajaykore45@gmail.com" class="p-2.5 rounded-full bg-white/5 hover:bg-cyan-500/20 text-cyan-400 transition-all">
-                <i data-lucide="mail" size="18"></i>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden hero-gradient">
-        <div id="vanta-canvas"></div>
-        <div class="container mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center z-10">
-            
-            <div class="lg:col-span-7 space-y-8">
-                <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full glass text-[10px] font-bold tracking-[0.2em] uppercase text-cyan-400">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-                    </span>
-                    Available for Engineering Roles
-                </div>
-                
-                <h1 class="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85]">
-                    DESIGNING <br />
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500">PERFECTION</span>
-                </h1>
-                
-                <div class="text-2xl md:text-3xl font-light text-slate-300">
-                    Expert <span id="typewriter" class="font-bold text-white border-r-4 border-cyan-500 pr-2"></span>
-                </div>
-                
-                <p class="max-w-xl text-lg text-slate-400 leading-relaxed font-medium">
-                    MCA Scholar with an <span class="text-white font-bold">8.5 CGPA</span>. Specialized in crafting high-availability backends using <span class="text-cyan-400">Laravel & ASP.NET</span>, paired with pixel-perfect <span class="text-violet-400">React</span> interfaces.
-                </p>
-                
-                <div class="flex flex-wrap gap-5 pt-6">
-                    <a href="#projects" class="px-10 py-5 btn-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center gap-3 shadow-xl">
-                        View Artifacts <i data-lucide="layers" size="18"></i>
-                    </a>
-                    <div class="flex gap-4 items-center pl-4">
-                        <a href="https://github.com/KoreAjay" target="_blank" class="w-12 h-12 glass flex items-center justify-center hover:text-cyan-400 transition-all"><i data-lucide="github" size="20"></i></a>
-                        <a href="https://www.linkedin.com/in/ajay-kore-23767a258/" target="_blank" class="w-12 h-12 glass flex items-center justify-center hover:text-cyan-400 transition-all"><i data-lucide="linkedin" size="20"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Magnetic Profile Tech Card -->
-            <div class="lg:col-span-5 perspective-1000 hidden lg:block">
-                <div id="magnetic-card" class="magnetic-card glass p-10 w-full aspect-[4/5] flex flex-col justify-between group relative overflow-hidden">
-                    <!-- Top Section -->
-                    <div class="space-y-6 relative z-10">
-                        <div class="flex justify-between items-start">
-                            <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center shadow-2xl transform group-hover:rotate-12 transition-transform duration-500">
-                                <i data-lucide="cpu" size="40" class="text-white"></i>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-[10px] font-black uppercase tracking-widest opacity-40">System Status</div>
-                                <div class="text-xs font-bold text-emerald-400">OPERATIONAL</div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-4xl font-black tracking-tighter">AJAY KORE</h3>
-                            <p class="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500/60 mt-2">Full Stack Engineer</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Middle Section (Roles & Tech) -->
-                    <div class="space-y-5 relative z-10">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                                <i data-lucide="code-2" size="14" class="text-cyan-400"></i>
-                                <span class="text-[10px] font-bold uppercase">Laravel</span>
-                            </div>
-                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                                <i data-lucide="terminal" size="14" class="text-violet-400"></i>
-                                <span class="text-[10px] font-bold uppercase">ASP.NET</span>
-                            </div>
-                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                                <i data-lucide="database" size="14" class="text-emerald-400"></i>
-                                <span class="text-[10px] font-bold uppercase">SQL Server</span>
-                            </div>
-                            <div class="bg-white/5 border border-white/5 p-3 rounded-xl flex items-center gap-3">
-                                <i data-lucide="shield-check" size="14" class="text-red-400"></i>
-                                <span class="text-[10px] font-bold uppercase">Java</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Mini Bio Stats -->
-                        <div class="pt-6 border-t border-white/10 grid grid-cols-2 gap-4">
-                            <div>
-                                <div class="text-[8px] font-black uppercase opacity-40">Education</div>
-                                <div class="text-[10px] font-bold">MCA @ DIMR, Pune</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-[8px] font-black uppercase opacity-40">CGPA</div>
-                                <div class="text-[10px] font-bold text-cyan-400">8.5 / 10.0</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Decorative background elements -->
-                    <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] animate-pulse-slow"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Professional Experience -->
-    <section id="experience" class="py-32 container mx-auto px-6">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-6">
-            <div class="space-y-4">
-                <span class="text-[10px] font-black text-cyan-500 uppercase tracking-[0.5em]">Career Path</span>
-                <h2 class="text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none">Professional <br/><span class="text-slate-700">Timeline</span></h2>
-            </div>
-            <div class="max-w-md text-slate-500 text-sm font-medium leading-relaxed border-l-2 border-cyan-500 pl-6">
-                Currently driving innovation at Leometric Technology, focusing on scalable enterprise solutions and database architectural perfection.
-            </div>
-        </div>
-
-        <div class="space-y-12">
-            <!-- Role 1 -->
-            <div class="group relative glass p-10 flex flex-col md:flex-row gap-8 items-start hover:border-cyan-500/50 transition-all">
-                <div class="md:w-1/4">
-                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Dec 2025 - Present</span>
-                    <h4 class="text-xl font-black mt-2 text-cyan-400">Leometric Technology</h4>
-                    <p class="text-xs font-bold opacity-40 uppercase">Web Developer Intern</p>
-                </div>
-                <div class="md:w-3/4 space-y-4">
-                    <p class="text-slate-300 leading-relaxed">
-                        Leading front-end and back-end integration using <span class="text-white font-bold">Laravel & MySQL</span>. Developing high-performance responsive pages and optimizing database schemas for live production workflows.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[9px] font-bold px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full">PHP</span>
-                        <span class="text-[9px] font-bold px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full">LARAVEL</span>
-                        <span class="text-[9px] font-bold px-3 py-1 bg-cyan-500/10 text-cyan-400 rounded-full">DATABASE OPS</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Role 2 -->
-            <div class="group relative glass p-10 flex flex-col md:flex-row gap-8 items-start hover:border-violet-500/50 transition-all">
-                <div class="md:w-1/4">
-                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">June 2025 - Oct 2025</span>
-                    <h4 class="text-xl font-black mt-2 text-violet-400">SETTribe IT Solutions</h4>
-                    <p class="text-xs font-bold opacity-40 uppercase">Full Stack Developer Intern</p>
-                </div>
-                <div class="md:w-3/4 space-y-4">
-                    <p class="text-slate-300 leading-relaxed">
-                        Achieved a <span class="text-white font-bold">20% improvement</span> in load speeds through front-end optimization. Developed full-stack modules that boosted team workflow efficiency by 15% and reduced system bugs by 20%.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-[9px] font-bold px-3 py-1 bg-violet-500/10 text-violet-400 rounded-full">FULL STACK</span>
-                        <span class="text-[9px] font-bold px-3 py-1 bg-violet-500/10 text-violet-400 rounded-full">PERFORMANCE OPS</span>
-                        <span class="text-[9px] font-bold px-3 py-1 bg-violet-500/10 text-violet-400 rounded-full">DEBUGGING</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Matrix Section -->
-    <section id="skills" class="py-32 bg-black/30">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-24 space-y-4">
-                <h2 class="text-5xl font-black tracking-tighter uppercase">Technical <span class="text-cyan-500">Architecture</span></h2>
-                <p class="text-slate-500 uppercase text-[10px] font-black tracking-[0.5em]">My Core Skill Matrix</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Backend -->
-                <div class="skill-matrix-card glass p-8 group">
-                    <div class="mb-8 flex justify-between items-center">
-                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-all">
-                            <i data-lucide="server"></i>
-                        </div>
-                        <span class="text-[9px] font-black opacity-30 uppercase tracking-widest">Backend</span>
-                    </div>
-                    <h3 class="text-lg font-black mb-6 uppercase tracking-tight">Logic & APIs</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Laravel / PHP</span><span>90%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>ASP.NET Core</span><span>85%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Core Java</span><span>80%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Frontend -->
-                <div class="skill-matrix-card glass p-8 group">
-                    <div class="mb-8 flex justify-between items-center">
-                        <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 group-hover:bg-violet-500 group-hover:text-white transition-all">
-                            <i data-lucide="layout"></i>
-                        </div>
-                        <span class="text-[9px] font-black opacity-30 uppercase tracking-widest">Interface</span>
-                    </div>
-                    <h3 class="text-lg font-black mb-6 uppercase tracking-tight">Frontend UI</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>React.js</span><span>85%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: var(--secondary)"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Tailwind CSS</span><span>95%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 95%; background: var(--secondary)"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Bootstrap 5</span><span>90%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 90%; background: var(--secondary)"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Data -->
-                <div class="skill-matrix-card glass p-8 group">
-                    <div class="mb-8 flex justify-between items-center">
-                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white transition-all">
-                            <i data-lucide="database"></i>
-                        </div>
-                        <span class="text-[9px] font-black opacity-30 uppercase tracking-widest">Storage</span>
-                    </div>
-                    <h3 class="text-lg font-black mb-6 uppercase tracking-tight">Data Engineering</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>MySQL</span><span>90%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 90%; background: #10b981"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>SQL Server</span><span>85%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: #10b981"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Query Optimization</span><span>80%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 80%; background: #10b981"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Security -->
-                <div class="skill-matrix-card glass p-8 group">
-                    <div class="mb-8 flex justify-between items-center">
-                        <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-400 group-hover:bg-red-500 group-hover:text-white transition-all">
-                            <i data-lucide="shield-check"></i>
-                        </div>
-                        <span class="text-[9px] font-black opacity-30 uppercase tracking-widest">Integrity</span>
-                    </div>
-                    <h3 class="text-lg font-black mb-6 uppercase tracking-tight">Security & AI</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Threat Analysis</span><span>75%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 75%; background: #ef4444"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Azure AI (AI-900)</span><span>85%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 85%; background: #ef4444"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-[10px] font-bold mb-1"><span>Incident Response</span><span>70%</span></div>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 70%; background: #ef4444"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Gallery -->
-    <section id="projects" class="py-32">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-6">
-                <div class="space-y-4">
-                    <span class="text-[10px] font-black text-cyan-500 uppercase tracking-[0.5em]">Showcase</span>
-                    <h2 class="text-5xl md:text-6xl font-black tracking-tighter uppercase leading-none">Engineering <br/><span class="text-slate-700">Artifacts</span></h2>
-                </div>
-                <div class="glass px-6 py-3 text-[10px] font-black uppercase tracking-widest">Handcrafted Solutions</div>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-10">
-                <!-- Sair Karo -->
-                <div class="project-card glass group relative overflow-hidden flex flex-col">
-                    <div class="p-10 space-y-8 relative z-10">
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400"><i data-lucide="plane" size="20"></i></div>
-                                <div class="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center text-violet-400"><i data-lucide="bus" size="20"></i></div>
-                            </div>
-                            <span class="px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase rounded">PHP & MySQL Stack</span>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-black tracking-tight mb-4 group-hover:text-cyan-400 transition-colors">Sair Karo Travel Ecosystem</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                                A comprehensive multi-modal travel management system. Engineered high-traffic ticket booking modules for trains, buses, and planes with a unified data architecture.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">Core PHP</span>
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">MySQL Optimization</span>
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">Bootstrap 5</span>
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">JS Dynamics</span>
-                            </div>
-                        </div>
-                        <div class="pt-8 border-t border-white/5 flex justify-between items-center">
-                            <div class="flex items-center gap-2 text-[10px] font-black uppercase text-cyan-500/60">
-                                <i data-lucide="users" size="14"></i> Team of 5 Members
-                            </div>
-                            <a href="#" class="group-hover:translate-x-2 transition-transform"><i data-lucide="arrow-right" class="text-cyan-400"></i></a>
-                        </div>
-                    </div>
-                    <!-- Hover Glow -->
-                    <div class="project-image-glow absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 transition-opacity duration-700 pointer-events-none"></div>
-                </div>
-
-                <!-- Banking Application -->
-                <div class="project-card glass group relative overflow-hidden flex flex-col">
-                    <div class="p-10 space-y-8 relative z-10">
-                        <div class="flex justify-between items-center">
-                            <div class="flex gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400"><i data-lucide="landmark" size="20"></i></div>
-                                <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400"><i data-lucide="lock" size="20"></i></div>
-                            </div>
-                            <span class="px-3 py-1 bg-violet-500/10 border border-violet-500/20 text-violet-400 text-[10px] font-black uppercase rounded">Enterprise Java</span>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-black tracking-tight mb-4 group-hover:text-violet-400 transition-colors">Secure Banking Architecture</h3>
-                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                                Developed a secure transaction-heavy simulator. Focused on ACID compliance, multi-layer security protocols, and robust relational data management using SQL Server.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">Java Enterprise</span>
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">SQL Server</span>
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">Security Principles</span>
-                                <span class="text-[9px] font-bold border border-white/10 px-2 py-1 rounded-md uppercase">Logic Flow</span>
-                            </div>
-                        </div>
-                        <div class="pt-8 border-t border-white/5 flex justify-between items-center">
-                            <div class="flex items-center gap-2 text-[10px] font-black uppercase text-violet-500/60">
-                                <i data-lucide="award" size="14"></i> Advanced Simulation
-                            </div>
-                            <a href="#" class="group-hover:translate-x-2 transition-transform"><i data-lucide="arrow-right" class="text-violet-400"></i></a>
-                        </div>
-                    </div>
-                    <!-- Hover Glow -->
-                    <div class="project-image-glow absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent opacity-0 transition-opacity duration-700 pointer-events-none"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact & Networking -->
-    <section id="contact" class="py-32 container mx-auto px-6">
-        <div class="glass p-16 relative overflow-hidden flex flex-col items-center text-center space-y-12">
-            <div class="absolute -top-1/2 -left-1/4 w-1/2 h-full bg-cyan-500/10 blur-[120px] rounded-full animate-pulse-slow"></div>
-            <div class="absolute -bottom-1/2 -right-1/4 w-1/2 h-full bg-violet-500/10 blur-[120px] rounded-full animate-pulse-slow"></div>
-            
-            <div class="relative z-10 space-y-6 max-w-2xl">
-                <h2 class="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.85]">
-                    Let's Build <br/><span class="text-cyan-500">The Future</span>
-                </h2>
-                <p class="text-slate-400 text-lg font-medium">
-                    I am actively seeking software engineering and full-stack opportunities in Pune. Let's discuss how my technical expertise can drive value for your team.
-                </p>
-            </div>
-
-            <div class="relative z-10 flex flex-wrap justify-center gap-6">
-                <a href="mailto:ajaykore45@gmail.com" class="px-12 py-6 btn-primary text-white font-black uppercase tracking-[0.2em] rounded-2xl flex items-center gap-4 text-xs shadow-2xl group">
-                    Send Transmission <i data-lucide="send" size="18" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+    <!-- HUD Layout Wrapper -->
+    <div class="flex min-h-screen relative">
+        
+        <!-- Vertical HUD Navigation -->
+        <aside class="fixed left-0 top-0 h-full w-16 border-r border-white/5 flex flex-col items-center py-12 gap-12 z-50 bg-black/40 backdrop-blur-md hidden lg:flex">
+            <div class="w-10 h-10 rounded-xl border border-cyan-400/50 flex items-center justify-center font-black text-cyan-400 text-lg shadow-[0_0_15px_rgba(0,242,255,0.3)]">A</div>
+            <nav class="flex flex-col gap-8 flex-1 justify-center mono text-[10px] font-bold tracking-[0.4em] uppercase opacity-40">
+                <a href="#hero" class="nav-link">SYSTEM_ROOT</a>
+                <a href="#expertise" class="nav-link">CORES_SKILLS</a>
+                <a href="#archives" class="nav-link">ARCHIVES_01</a>
+                <a href="#contact" class="nav-link">LINK_ESTABLISH</a>
+            </nav>
+            <div class="flex flex-col gap-6 opacity-40 hover:opacity-100 transition-opacity pb-8">
+                <a href="https://github.com/ajaykore45" target="_blank" title="GitHub"><i data-lucide="github" class="w-5 h-5 cursor-pointer"></i></a>
+                <a href="https://linkedin.com/in/ajay-kore" target="_blank" title="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5 cursor-pointer"></i></a>
+                <a href="https://www.hackerrank.com/ajaykore45" target="_blank" title="HackerRank" class="hackerrank-icon">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5 cursor-pointer" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.18 17.118h-8.36v-10.235h1.286v8.949h5.788v-8.949h1.286v10.235zM12 9.035c-.655 0-1.186.531-1.186 1.186s.531 1.186 1.186 1.186 1.186-.531 1.186-1.186-.531-1.186-1.186-1.186z"/>
+                    </svg>
                 </a>
-                <div class="flex gap-4">
-                    <a href="https://linkedin.com" target="_blank" class="w-16 h-16 glass flex items-center justify-center hover:bg-cyan-500/20 hover:text-cyan-400 transition-all cursor-pointer"><i data-lucide="linkedin"></i></a>
-                    <a href="https://github.com" target="_blank" class="w-16 h-16 glass flex items-center justify-center hover:bg-cyan-500/20 hover:text-cyan-400 transition-all cursor-pointer"><i data-lucide="github"></i></a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 lg:ml-16 px-6 lg:px-20">
+            
+            <!-- Hero Section -->
+            <section id="hero" class="min-h-screen flex flex-col lg:flex-row items-center justify-between relative py-20 gap-12">
+                
+                <div class="flex-1 order-2 lg:order-1">
+                    <div class="mono text-cyan-400 text-sm mb-6 flex items-center gap-3">
+                        <span class="inline-block w-2 h-2 bg-cyan-400 animate-pulse"></span>
+                        SECURE_ACCESS: GRANTED // USER_ID: AJAY_S_KORE
+                    </div>
+
+                    <div class="relative">
+                        <h1 class="text-6xl md:text-8xl font-[900] tracking-tighter leading-none mb-4 uppercase">
+                            FULL STACK <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 italic">DEVELOPER</span>
+                        </h1>
+                    </div>
+
+                    <div class="max-w-xl mt-12 space-y-8">
+                        <p class="text-lg text-slate-400 font-light leading-relaxed">
+                            Engineering robust web modules and scalable backends. Focused on <span class="text-white font-medium">optimizing system performance</span> and delivering high-efficiency code for enterprise solutions.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4 mono text-[10px]">
+                            <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                                <span class="text-cyan-400">8.5</span>
+                                <span class="opacity-40 uppercase tracking-widest">CGPA</span>
+                            </div>
+                            <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
+                                <span class="text-purple-400">MCA</span>
+                                <span class="opacity-40 uppercase tracking-widest">PUNE UNIVERSITY</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Footer Credits -->
-        <div class="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] font-black uppercase tracking-[0.5em] opacity-30">
-            <div class="flex items-center gap-4">
-                <span>Ajay Shivputra Kore</span>
-                <span class="w-1 h-1 bg-white rounded-full"></span>
-                <span>Hinjewadi, Pune</span>
-            </div>
-            <p>© 2026 DESIGNED & ENGINEERED FOR PERFECTION</p>
-        </div>
-    </section>
+                <!-- Profile Image Area -->
+                <div class="order-1 lg:order-2 flex justify-center items-center">
+                    <div class="profile-container group">
+                        <div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-cyan-400"></div>
+                        <div class="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-purple-400"></div>
+                        
+                        <div class="profile-frame" id="image-frame">
+                            <img id="display-photo" src="ak.jpg" alt="Ajay Kore" class="profile-img">
+                            <div class="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer" onclick="document.getElementById('photo-upload').click()">
+                                <span class="mono text-[10px] font-bold text-white bg-black/80 px-4 py-2 rounded">UPDATE_IMG</span>
+                            </div>
+                        </div>
+                        <div class="corner-tag italic uppercase tracking-tighter">AJAY_KORE.OS</div>
+                        
+                        <input type="file" id="photo-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
+                    </div>
+                </div>
 
-    <!-- Core Engine Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+                <div class="absolute bottom-10 right-0 hidden lg:block">
+                    <div class="mono text-[10px] text-right opacity-30 tracking-widest leading-loose">
+                        LOC: PUNE_HINJEWADI_CLUSTER<br>
+                        OS: WEBKIT_ENGINE_PORTFOLIO<br>
+                        VER: 3.2.0_LATEST
+                    </div>
+                </div>
+            </section>
+
+            <!-- Expertise & Projects -->
+            <section id="expertise" class="py-24">
+                <h2 class="mono text-xs tracking-[0.5em] uppercase opacity-30 mb-12 flex items-center gap-4">
+                    <span class="h-[1px] w-12 bg-white/20"></span> Capability Matrix & Build Log
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <!-- Skills -->
+                    <div class="md:col-span-12 bento-card glass-panel p-10 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <div class="flex-1">
+                            <i data-lucide="cpu" class="text-cyan-400 mb-6 w-8 h-8"></i>
+                            <h3 class="text-3xl font-black mb-2 italic uppercase">Core System Architecture</h3>
+                            <p class="text-xs opacity-50 mono tracking-widest">PRIMARY_TOOLS_ENABLED</p>
+                        </div>
+                        <div class="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-cyan-400">PHP LARAVEL</div>
+                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-purple-400">ASP.NET WEBFORMS</div>
+                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-blue-400">C# / JAVA</div>
+                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-emerald-400">SQL SERVER / MYSQL</div>
+                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-orange-400">ADO.NET</div>
+                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-yellow-400">JAVASCRIPT</div>
+                        </div>
+                    </div>
+
+                    <!-- Project 1: Travel App -->
+                    <div class="md:col-span-4 bento-card glass-panel p-8 border-white/5 hover:border-cyan-400/40 cursor-pointer group">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center group-hover:bg-cyan-400 transition-colors">
+                                <i data-lucide="plane" class="w-5 h-5 group-hover:text-black"></i>
+                            </div>
+                            <span class="mono text-[10px] opacity-30 uppercase">PHP / MySQL</span>
+                        </div>
+                        <div class="flex gap-2 mb-3">
+                            <span class="project-badge">TEAM_SIZE: 5</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Sair Karo Travel System</h4>
+                        <p class="text-sm opacity-50 mb-6 leading-relaxed">End-to-end travel management for rail, bus, and flight bookings.</p>
+                        <div class="flex items-center gap-2 text-cyan-400 text-[10px] font-bold uppercase tracking-widest">
+                            Source Archives <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: E-Commerce -->
+                    <div class="md:col-span-4 bento-card glass-panel p-8 border-white/5 hover:border-purple-400/40 cursor-pointer group">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-12 h-12 rounded-xl bg-purple-400/10 border border-purple-400/20 flex items-center justify-center group-hover:bg-purple-400 transition-colors">
+                                <i data-lucide="shopping-cart" class="w-5 h-5 group-hover:text-black"></i>
+                            </div>
+                            <span class="mono text-[10px] opacity-30 uppercase">ASP.NET / SQL</span>
+                        </div>
+                        <div class="flex gap-2 mb-3">
+                            <span class="project-badge">TEAM_SIZE: 5</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Enterprise E-Commerce</h4>
+                        <p class="text-sm opacity-50 mb-6 leading-relaxed">Scalable shopping portal using Webforms and ADO.NET for seamless UX.</p>
+                        <div class="flex items-center gap-2 text-purple-400 text-[10px] font-bold uppercase tracking-widest">
+                            Architecture Log <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Inventory (Bonus/Suggested) -->
+                    <div class="md:col-span-4 bento-card glass-panel p-8 border-white/5 hover:border-emerald-400/40 cursor-pointer group">
+                        <div class="flex justify-between items-start mb-12">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center group-hover:bg-emerald-400 transition-colors">
+                                <i data-lucide="package" class="w-5 h-5 group-hover:text-black"></i>
+                            </div>
+                            <span class="mono text-[10px] opacity-30 uppercase">Laravel / Vue</span>
+                        </div>
+                        <div class="flex gap-2 mb-3">
+                            <span class="project-badge">CONCEPTUAL</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-2">Smart Inventory OS</h4>
+                        <p class="text-sm opacity-50 mb-6 leading-relaxed">Real-time stock tracking with automated reordering and analytics dashboard.</p>
+                        <div class="flex items-center gap-2 text-emerald-400 text-[10px] font-bold uppercase tracking-widest">
+                            Planned Module <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Timeline -->
+            <section id="archives" class="py-24">
+                 <h2 class="mono text-xs tracking-[0.5em] uppercase opacity-30 mb-12 flex items-center gap-4">
+                    <span class="h-[1px] w-12 bg-white/20"></span> Professional Logs
+                </h2>
+
+                <div class="space-y-12">
+                    <div class="relative pl-12 border-l border-white/5">
+                        <div class="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f2ff]"></div>
+                        <div class="mono text-[10px] text-cyan-400 mb-2">DEC 2025 - PRESENT</div>
+                        <h3 class="text-2xl font-bold">Web Developer Intern</h3>
+                        <p class="text-slate-500 mt-1 italic">Leometric Technology IT Solutions Pvt Ltd.</p>
+                        <ul class="mt-4 text-slate-400 text-sm space-y-2 max-w-3xl list-disc list-inside">
+                            <li>Developing responsive pages and handling database operations using PHP & Laravel.</li>
+                        </ul>
+                    </div>
+
+                    <div class="relative pl-12 border-l border-white/5">
+                        <div class="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-white/20"></div>
+                        <div class="mono text-[10px] opacity-40 mb-2">JUNE 2025 - OCT 2025</div>
+                        <h3 class="text-2xl font-bold">Full Stack Developer Intern</h3>
+                        <p class="text-slate-500 mt-1 italic">SETTribe IT Solutions Pvt Ltd.</p>
+                        <ul class="mt-4 text-slate-400 text-sm space-y-2 max-w-3xl">
+                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-1">▸</span> Built full-stack modules improving load speed by 20%.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-32 border-t border-white/5">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-6xl md:text-8xl font-[900] tracking-tighter mb-8 italic uppercase">INITIATE LINK</h2>
+                    <div class="flex flex-col items-center gap-6">
+                        <a href="mailto:ajaykore45@gmail.com" class="inline-flex items-center gap-6 px-12 py-6 glass-panel rounded-2xl hover:bg-cyan-400 hover:text-black transition-all group w-full max-w-lg justify-center">
+                            <span class="text-2xl font-black lowercase">ajaykore45@gmail.com</span>
+                            <i data-lucide="send" class="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
+                        </a>
+                        <div class="flex gap-4">
+                            <a href="https://github.com/KoreAjay" target="_blank" class="p-4 glass-panel rounded-xl hover:text-cyan-400 transition-colors">
+                                <i data-lucide="github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ajay-kore-23767a258/" target="_blank" class="p-4 glass-panel rounded-xl hover:text-cyan-400 transition-colors">
+                                <i data-lucide="linkedin"></i>
+                            </a>
+                            <a href="https://www.hackerrank.com/profile/AJAY_KORE" target="_blank" class="p-4 glass-panel rounded-xl hover:text-cyan-400 transition-colors hackerrank-icon">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.18 17.118h-8.36v-10.235h1.286v8.949h5.788v-8.949h1.286v10.235zM12 9.035c-.655 0-1.186.531-1.186 1.186s.531 1.186 1.186 1.186 1.186-.531 1.186-1.186-.531-1.186-1.186-1.186z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
     <script>
-        // 1. Initialize Lucide Icons
         lucide.createIcons();
 
-        // 2. Vanta.js Background Engine
-        window.addEventListener('DOMContentLoaded', () => {
-            VANTA.NET({
-                el: "#vanta-canvas",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.0,
-                minWidth: 200.0,
-                scale: 1.0,
-                scaleMobile: 1.0,
-                color: 0x22d3ee,
-                backgroundColor: 0x020617,
-                points: 12.0,
-                maxDistance: 22.0,
-                spacing: 15.0
-            });
-        });
-
-        // 3. Typewriter Logic (Roles from Resume)
-        const roles = ["Full Stack Developer", "Laravel Architect", "ASP.NET Core Expert", "Java Engineer", "Cybersecurity Specialist"];
-        let roleIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
-        const typewriterEl = document.getElementById('typewriter');
-
-        function typeLoop() {
-            const current = roles[roleIdx];
-            if (isDeleting) {
-                typewriterEl.textContent = current.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                typewriterEl.textContent = current.substring(0, charIdx + 1);
-                charIdx++;
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('display-photo');
+                output.src = reader.result;
             }
-
-            let speed = isDeleting ? 40 : 80;
-
-            if (!isDeleting && charIdx === current.length) {
-                speed = 2500; // Pause at end
-                isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                roleIdx = (roleIdx + 1) % roles.length;
-                speed = 500;
-            }
-
-            setTimeout(typeLoop, speed);
+            reader.readAsDataURL(event.target.files[0]);
         }
-        typeLoop();
 
-        // 4. System Clock
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('nav-clock').textContent = now.toLocaleTimeString();
-        }, 1000);
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
 
-        // 5. Magnetic 3D Card Interaction
-        const card = document.getElementById('magnetic-card');
-        document.addEventListener('mousemove', (e) => {
-            const { clientX, clientY } = e;
-            const rect = card.getBoundingClientRect();
-            // Calculate relative offset from center
-            const x = (clientX - rect.left - rect.width / 2) / 20;
-            const y = (clientY - rect.top - rect.height / 2) / 20;
-            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
         });
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        });
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.2;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.2)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-        // 6. Scroll Reveal Observer for Progress Bars
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const fills = entry.target.querySelectorAll('.progress-fill');
-                    fills.forEach(fill => {
-                        const width = fill.style.width;
-                        fill.style.width = '0%';
-                        setTimeout(() => { fill.style.width = width; }, 100);
-                    });
-                }
+        function init() {
+            resize();
+            for (let i = 0; i < 100; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--y', `${e.clientY - rect.top}px`);
             });
-        }, { threshold: 0.1 });
-
-        observer.observe(document.getElementById('skills'));
+        });
     </script>
-    <script>
-    // 1. Initialize Lucide Icons
-    lucide.createIcons();
-
-    // 2. Typewriter Effect
-    const words = ["Architect", "Full-Stack Developer", "Problem Solver", "Database Specialist"];
-    let i = 0;
-    let j = 0;
-    let currentWord = "";
-    let isDeleting = false;
-    const typewriterElement = document.getElementById("typewriter");
-
-    function type() {
-        currentWord = words[i];
-        if (isDeleting) {
-            typewriterElement.textContent = currentWord.substring(0, j - 1);
-            j--;
-            if (j === 0) {
-                isDeleting = false;
-                i = (i + 1) % words.length;
-            }
-        } else {
-            typewriterElement.textContent = currentWord.substring(0, j + 1);
-            j++;
-            if (j === currentWord.length) {
-                isDeleting = true;
-                setTimeout(type, 1500); // Pause at end of word
-                return;
-            }
-        }
-        setTimeout(type, isDeleting ? 50 : 150);
-    }
-    type();
-
-    // 3. Magnetic Card Effect (3D Tilt)
-    const card = document.getElementById('magnetic-card');
-    document.addEventListener('mousemove', (e) => {
-        if (!card) return;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        } else {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-        }
-    });
-
-    // 4. Live System Clock
-    function updateClock() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('en-US', { hour12: false });
-        document.getElementById('nav-clock').textContent = `SYS_TIME: ${timeString}`;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    // 5. Scroll Reveal for Progress Bars
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const fills = entry.target.querySelectorAll('.progress-fill');
-                fills.forEach(fill => {
-                    const width = fill.style.width;
-                    fill.style.width = '0';
-                    setTimeout(() => fill.style.width = width, 100);
-                });
-            }
-        });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.skill-matrix-card').forEach(card => observer.observe(card));
-</script>
 </body>
 </html>
-
-
-
