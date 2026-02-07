@@ -603,7 +603,87 @@
 
         observer.observe(document.getElementById('skills'));
     </script>
+    <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Typewriter Effect
+    const words = ["Architect", "Full-Stack Developer", "Problem Solver", "Database Specialist"];
+    let i = 0;
+    let j = 0;
+    let currentWord = "";
+    let isDeleting = false;
+    const typewriterElement = document.getElementById("typewriter");
+
+    function type() {
+        currentWord = words[i];
+        if (isDeleting) {
+            typewriterElement.textContent = currentWord.substring(0, j - 1);
+            j--;
+            if (j === 0) {
+                isDeleting = false;
+                i = (i + 1) % words.length;
+            }
+        } else {
+            typewriterElement.textContent = currentWord.substring(0, j + 1);
+            j++;
+            if (j === currentWord.length) {
+                isDeleting = true;
+                setTimeout(type, 1500); // Pause at end of word
+                return;
+            }
+        }
+        setTimeout(type, isDeleting ? 50 : 150);
+    }
+    type();
+
+    // 3. Magnetic Card Effect (3D Tilt)
+    const card = document.getElementById('magnetic-card');
+    document.addEventListener('mousemove', (e) => {
+        if (!card) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        if (x > 0 && x < rect.width && y > 0 && y < rect.height) {
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        } else {
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+        }
+    });
+
+    // 4. Live System Clock
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+        document.getElementById('nav-clock').textContent = `SYS_TIME: ${timeString}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // 5. Scroll Reveal for Progress Bars
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const fills = entry.target.querySelectorAll('.progress-fill');
+                fills.forEach(fill => {
+                    const width = fill.style.width;
+                    fill.style.width = '0';
+                    setTimeout(() => fill.style.width = width, 100);
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.skill-matrix-card').forEach(card => observer.observe(card));
+</script>
 </body>
 </html>
+
 
 
