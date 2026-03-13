@@ -1,461 +1,317 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajay Kore | Engineering OS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Inter:wght@400;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --neon-blue: #00f2ff;
-            --neon-purple: #bc13fe;
-            --bg-dark: #050505;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            background-color: var(--bg-dark);
-            color: #e2e8f0;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+<title>Ajay Kore | Java Full Stack Developer</title>
 
-        .mono { font-family: 'JetBrains Mono', monospace; }
+<script src="https://cdn.tailwindcss.com"></script>
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-blue); }
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Inter:wght@400;900&display=swap" rel="stylesheet">
 
-        .glass-panel {
-            background: rgba(10, 10, 10, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
+<script src="https://unpkg.com/lucide@latest"></script>
 
-        .glass-panel:hover {
-            border-color: rgba(0, 242, 255, 0.3);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.05);
-        }
+<style>
 
-        #bg-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            z-index: -1;
-            opacity: 0.6;
-        }
+:root{
+--neon-blue:#00f2ff;
+--neon-purple:#bc13fe;
+--bg-dark:#050505;
+}
 
-        .scanline {
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, var(--neon-blue), transparent);
-            position: absolute;
-            animation: scan 4s linear infinite;
-            opacity: 0.1;
-            z-index: 10;
-            pointer-events: none;
-        }
+body{
+background-color:var(--bg-dark);
+color:#e2e8f0;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
+}
 
-        @keyframes scan {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
+.mono{font-family:'JetBrains Mono',monospace;}
 
-        .profile-container {
-            position: relative;
-            width: 280px;
-            height: 320px;
-        }
+.glass-panel{
+background:rgba(10,10,10,0.7);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,0.05);
+transition:all .3s;
+}
 
-        .profile-frame {
-            position: absolute;
-            inset: 0;
-            border: 1px solid rgba(0, 242, 255, 0.3);
-            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 15% 100%, 0 85%);
-            background: rgba(0, 242, 255, 0.05);
-            overflow: hidden;
-        }
+.glass-panel:hover{
+border-color:rgba(0,242,255,0.3);
+box-shadow:0 0 30px rgba(0,242,255,0.05);
+}
 
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%) contrast(110%);
-            mix-blend-mode: luminosity;
-            transition: all 0.5s ease;
-        }
+.skill-tag{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.1);
+transition:.3s;
+}
 
-        .profile-container:hover .profile-img {
-            filter: grayscale(0%) contrast(100%);
-            mix-blend-mode: normal;
-            transform: scale(1.05);
-        }
+.skill-tag:hover{
+background:rgba(0,242,255,0.1);
+border-color:var(--neon-blue);
+transform:translateY(-2px);
+}
 
-        .corner-tag {
-            position: absolute;
-            bottom: -10px;
-            right: -10px;
-            background: var(--neon-blue);
-            color: black;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 4px 10px;
-            font-family: 'JetBrains Mono';
-            transform: rotate(-2deg);
-            z-index: 20;
-        }
+.project-badge{
+background:rgba(0,242,255,0.1);
+color:var(--neon-blue);
+font-size:9px;
+padding:2px 8px;
+border-radius:4px;
+border:1px solid rgba(0,242,255,0.2);
+font-family:'JetBrains Mono';
+}
 
-        .bento-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 24px;
-        }
-
-        .bento-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at var(--x) var(--y), rgba(0, 242, 255, 0.1), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-
-        .bento-card:hover::before { opacity: 1; }
-
-        .nav-link {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            transition: all 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .skill-tag {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-        }
-        
-        .skill-tag:hover {
-            background: rgba(0, 242, 255, 0.1);
-            border-color: var(--neon-blue);
-            transform: translateY(-2px);
-        }
-
-        .project-badge {
-            background: rgba(0, 242, 255, 0.1);
-            color: var(--neon-blue);
-            font-size: 9px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            font-family: 'JetBrains Mono';
-        }
-
-        .hackerrank-icon svg {
-            fill: currentColor;
-        }
-    </style>
+</style>
 </head>
+
 <body class="antialiased">
-    <canvas id="bg-canvas"></canvas>
-    <div class="scanline"></div>
 
-    <!-- HUD Layout Wrapper -->
-    <div class="flex min-h-screen relative">
-        
-        <!-- Vertical HUD Navigation -->
-        <aside class="fixed left-0 top-0 h-full w-16 border-r border-white/5 flex flex-col items-center py-12 gap-12 z-50 bg-black/40 backdrop-blur-md hidden lg:flex">
-            <div class="w-10 h-10 rounded-xl border border-cyan-400/50 flex items-center justify-center font-black text-cyan-400 text-lg shadow-[0_0_15px_rgba(0,242,255,0.3)]">A</div>
-            <nav class="flex flex-col gap-8 flex-1 justify-center mono text-[10px] font-bold tracking-[0.4em] uppercase opacity-40">
-                <a href="#hero" class="nav-link">SYSTEM_ROOT</a>
-                <a href="#expertise" class="nav-link">CORES_SKILLS</a>
-                <a href="#archives" class="nav-link">ARCHIVES_01</a>
-                <a href="#contact" class="nav-link">LINK_ESTABLISH</a>
-            </nav>
-            <div class="flex flex-col gap-6 opacity-40 hover:opacity-100 transition-opacity pb-8">
-                <a href="https://github.com/ajaykore45" target="_blank" title="GitHub"><i data-lucide="github" class="w-5 h-5 cursor-pointer"></i></a>
-                <a href="https://linkedin.com/in/ajay-kore" target="_blank" title="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5 cursor-pointer"></i></a>
-                <a href="https://www.hackerrank.com/ajaykore45" target="_blank" title="HackerRank" class="hackerrank-icon">
-                    <svg viewBox="0 0 24 24" class="w-5 h-5 cursor-pointer" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.18 17.118h-8.36v-10.235h1.286v8.949h5.788v-8.949h1.286v10.235zM12 9.035c-.655 0-1.186.531-1.186 1.186s.531 1.186 1.186 1.186 1.186-.531 1.186-1.186-.531-1.186-1.186-1.186z"/>
-                    </svg>
-                </a>
-            </div>
-        </aside>
+<div class="max-w-7xl mx-auto px-6 py-20">
 
-        <!-- Main Content -->
-        <main class="flex-1 lg:ml-16 px-6 lg:px-20">
-            
-            <!-- Hero Section -->
-            <section id="hero" class="min-h-screen flex flex-col lg:flex-row items-center justify-between relative py-20 gap-12">
-                
-                <div class="flex-1 order-2 lg:order-1">
-                    <div class="mono text-cyan-400 text-sm mb-6 flex items-center gap-3">
-                        <span class="inline-block w-2 h-2 bg-cyan-400 animate-pulse"></span>
-                        SECURE_ACCESS: GRANTED // USER_ID: AJAY_S_KORE
-                    </div>
+<!-- HERO -->
 
-                    <div class="relative">
-                        <h1 class="text-6xl md:text-8xl font-[900] tracking-tighter leading-none mb-4 uppercase">
-                            FULL STACK <br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 italic">DEVELOPER</span>
-                        </h1>
-                    </div>
+<section class="mb-24">
 
-                    <div class="max-w-xl mt-12 space-y-8">
-                        <p class="text-lg text-slate-400 font-light leading-relaxed">
-                            Engineering robust web modules and scalable backends. Focused on <span class="text-white font-medium">optimizing system performance</span> and delivering high-efficiency code for enterprise solutions.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-4 mono text-[10px]">
-                            <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
-                                <span class="text-cyan-400">8.5</span>
-                                <span class="opacity-40 uppercase tracking-widest">CGPA</span>
-                            </div>
-                            <div class="glass-panel px-5 py-3 rounded-full flex items-center gap-3">
-                                <span class="text-purple-400">MCA</span>
-                                <span class="opacity-40 uppercase tracking-widest">PUNE UNIVERSITY</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<p class="mono text-cyan-400 text-sm mb-6">
+SECURE_ACCESS: GRANTED // USER_ID: AJAY_S_KORE
+</p>
 
-                <!-- Profile Image Area -->
-                <div class="order-1 lg:order-2 flex justify-center items-center">
-                    <div class="profile-container group">
-                        <div class="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-cyan-400"></div>
-                        <div class="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-purple-400"></div>
-                        
-                        <div class="profile-frame" id="image-frame">
-                            <img id="display-photo" src="ak.jpg" alt="Ajay Kore" class="profile-img">
-                            </div>
-                        </div>
-                        <div class="corner-tag italic uppercase tracking-tighter">AJAY_KORE.OS</div>
-                        
-                        <input type="file" id="photo-upload" class="hidden" accept="image/*" onchange="previewImage(event)">
-                    </div>
-                </div>
+<h1 class="text-6xl font-black mb-6 uppercase">
+JAVA FULL STACK <br>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 italic">
+DEVELOPER
+</span>
+</h1>
 
-                <div class="absolute bottom-10 right-0 hidden lg:block">
-                    <div class="mono text-[10px] text-right opacity-30 tracking-widest leading-loose">
-                        LOC: PUNE_HINJEWADI_CLUSTER<br>
-                        OS: WEBKIT_ENGINE_PORTFOLIO<br>
-                        VER: 3.2.0_LATEST
-                    </div>
-                </div>
-            </section>
+<p class="max-w-xl text-slate-400 leading-relaxed">
+Java Full Stack Developer focused on building scalable web applications, REST APIs,
+and data-driven backend systems. Experienced in React, API integrations,
+database optimization and automation using Python.
+</p>
 
-            <!-- Expertise & Projects -->
-            <section id="expertise" class="py-24">
-                <h2 class="mono text-xs tracking-[0.5em] uppercase opacity-30 mb-12 flex items-center gap-4">
-                    <span class="h-[1px] w-12 bg-white/20"></span> Capability Matrix & Build Log
-                </h2>
+<div class="flex gap-6 mt-10 mono text-xs">
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    <!-- Skills -->
-                    <div class="md:col-span-12 bento-card glass-panel p-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                        <div class="flex-1">
-                            <i data-lucide="cpu" class="text-cyan-400 mb-6 w-8 h-8"></i>
-                            <h3 class="text-3xl font-black mb-2 italic uppercase">Core System Architecture</h3>
-                            <p class="text-xs opacity-50 mono tracking-widest">PRIMARY_TOOLS_ENABLED</p>
-                        </div>
-                        <div class="flex-1 grid grid-cols-2 sm:grid-cols-3 gap-3">
-                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-cyan-400">PHP LARAVEL</div>
-                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-purple-400">ASP.NET WEBFORMS</div>
-                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-blue-400">C# / JAVA</div>
-                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-emerald-400">SQL SERVER / MYSQL</div>
-                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-orange-400">ADO.NET</div>
-                            <div class="skill-tag p-3 rounded-xl mono text-[10px] text-yellow-400">JAVASCRIPT</div>
-                        </div>
-                    </div>
+<div class="glass-panel px-6 py-3 rounded-full">
+<span class="text-cyan-400">MCA</span>
+PUNE UNIVERSITY
+</div>
 
-                    <!-- Project 1: Travel App -->
-                    <div class="md:col-span-4 bento-card glass-panel p-8 border-white/5 hover:border-cyan-400/40 cursor-pointer group">
-                        <div class="flex justify-between items-start mb-12">
-                            <div class="w-12 h-12 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center group-hover:bg-cyan-400 transition-colors">
-                                <i data-lucide="plane" class="w-5 h-5 group-hover:text-black"></i>
-                            </div>
-                            <span class="mono text-[10px] opacity-30 uppercase">PHP / MySQL</span>
-                        </div>
-                        <div class="flex gap-2 mb-3">
-                            <span class="project-badge">TEAM_SIZE: 5</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Sair Karo Travel System</h4>
-                        <p class="text-sm opacity-50 mb-6 leading-relaxed">End-to-end travel management for rail, bus, and flight bookings.</p>
-                        <div class="flex items-center gap-2 text-cyan-400 text-[10px] font-bold uppercase tracking-widest">
-                            Source Archives <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-                        </div>
-                    </div>
+<div class="glass-panel px-6 py-3 rounded-full">
+<span class="text-purple-400">2026</span>
+GRADUATE
+</div>
 
-                    <!-- Project 2: E-Commerce -->
-                    <div class="md:col-span-4 bento-card glass-panel p-8 border-white/5 hover:border-purple-400/40 cursor-pointer group">
-                        <div class="flex justify-between items-start mb-12">
-                            <div class="w-12 h-12 rounded-xl bg-purple-400/10 border border-purple-400/20 flex items-center justify-center group-hover:bg-purple-400 transition-colors">
-                                <i data-lucide="shopping-cart" class="w-5 h-5 group-hover:text-black"></i>
-                            </div>
-                            <span class="mono text-[10px] opacity-30 uppercase">ASP.NET / SQL</span>
-                        </div>
-                        <div class="flex gap-2 mb-3">
-                            <span class="project-badge">TEAM_SIZE: 5</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Enterprise E-Commerce</h4>
-                        <p class="text-sm opacity-50 mb-6 leading-relaxed">Scalable shopping portal using Webforms and ADO.NET for seamless UX.</p>
-                        <div class="flex items-center gap-2 text-purple-400 text-[10px] font-bold uppercase tracking-widest">
-                            Architecture Log <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-                        </div>
-                    </div>
+</div>
 
-                    <!-- Project 3: Inventory (Bonus/Suggested) -->
-                    <div class="md:col-span-4 bento-card glass-panel p-8 border-white/5 hover:border-emerald-400/40 cursor-pointer group">
-                        <div class="flex justify-between items-start mb-12">
-                            <div class="w-12 h-12 rounded-xl bg-emerald-400/10 border border-emerald-400/20 flex items-center justify-center group-hover:bg-emerald-400 transition-colors">
-                                <i data-lucide="package" class="w-5 h-5 group-hover:text-black"></i>
-                            </div>
-                            <span class="mono text-[10px] opacity-30 uppercase">Laravel / Vue</span>
-                        </div>
-                        <div class="flex gap-2 mb-3">
-                            <span class="project-badge">CONCEPTUAL</span>
-                        </div>
-                        <h4 class="text-xl font-bold mb-2">Smart Inventory OS</h4>
-                        <p class="text-sm opacity-50 mb-6 leading-relaxed">Real-time stock tracking with automated reordering and analytics dashboard.</p>
-                        <div class="flex items-center gap-2 text-emerald-400 text-[10px] font-bold uppercase tracking-widest">
-                            Planned Module <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
-                        </div>
-                    </div>
-                </div>
-            </section>
+</section>
 
-            <!-- Experience Timeline -->
-            <section id="archives" class="py-24">
-                 <h2 class="mono text-xs tracking-[0.5em] uppercase opacity-30 mb-12 flex items-center gap-4">
-                    <span class="h-[1px] w-12 bg-white/20"></span> Professional Logs
-                </h2>
+<!-- SKILLS -->
 
-                <div class="space-y-12">
-                    <div class="relative pl-12 border-l border-white/5">
-                        <div class="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f2ff]"></div>
-                        <div class="mono text-[10px] text-cyan-400 mb-2">DEC 2025 - PRESENT</div>
-                        <h3 class="text-2xl font-bold">Web Developer Intern</h3>
-                        <p class="text-slate-500 mt-1 italic">Leometric Technology IT Solutions Pvt Ltd.</p>
-                        <ul class="mt-4 text-slate-400 text-sm space-y-2 max-w-3xl list-disc list-inside">
-                            <li>Developing responsive pages and handling database operations using PHP & Laravel.</li>
-                        </ul>
-                    </div>
+<section class="mb-24">
 
-                    <div class="relative pl-12 border-l border-white/5">
-                        <div class="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-white/20"></div>
-                        <div class="mono text-[10px] opacity-40 mb-2">JUNE 2025 - OCT 2025</div>
-                        <h3 class="text-2xl font-bold">Full Stack Developer Intern</h3>
-                        <p class="text-slate-500 mt-1 italic">SETTribe IT Solutions Pvt Ltd.</p>
-                        <ul class="mt-4 text-slate-400 text-sm space-y-2 max-w-3xl">
-                            <li class="flex items-start gap-2"><span class="text-cyan-400 mt-1">▸</span> Built full-stack modules improving load speed by 20%.</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+<h2 class="mono text-xs tracking-[0.4em] opacity-40 mb-10">
+CORE_TECH_STACK
+</h2>
 
-            <!-- Contact Section -->
-            <section id="contact" class="py-32 border-t border-white/5">
-                <div class="max-w-4xl mx-auto text-center">
-                    <h2 class="text-6xl md:text-8xl font-[900] tracking-tighter mb-8 italic uppercase">INITIATE LINK</h2>
-                    <div class="flex flex-col items-center gap-6">
-                        <a href="mailto:ajaykore45@gmail.com" class="inline-flex items-center gap-6 px-12 py-6 glass-panel rounded-2xl hover:bg-cyan-400 hover:text-black transition-all group w-full max-w-lg justify-center">
-                            <span class="text-2xl font-black lowercase">ajaykore45@gmail.com</span>
-                            <i data-lucide="send" class="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
-                        </a>
-                        <div class="flex gap-4">
-                            <a href="https://github.com/KoreAjay" target="_blank" class="p-4 glass-panel rounded-xl hover:text-cyan-400 transition-colors">
-                                <i data-lucide="github"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/ajay-kore-23767a258/" target="_blank" class="p-4 glass-panel rounded-xl hover:text-cyan-400 transition-colors">
-                                <i data-lucide="linkedin"></i>
-                            </a>
-                            <a href="https://www.hackerrank.com/profile/AJAY_KORE" target="_blank" class="p-4 glass-panel rounded-xl hover:text-cyan-400 transition-colors hackerrank-icon">
-                                <svg viewBox="0 0 24 24" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.18 17.118h-8.36v-10.235h1.286v8.949h5.788v-8.949h1.286v10.235zM12 9.035c-.655 0-1.186.531-1.186 1.186s.531 1.186 1.186 1.186 1.186-.531 1.186-1.186-.531-1.186-1.186-1.186z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
-    <script>
-        lucide.createIcons();
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-cyan-400">JAVA</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-blue-400">SPRING BOOT</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-purple-400">REST API</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-yellow-400">JAVASCRIPT</div>
 
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                const output = document.getElementById('display-photo');
-                output.src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-orange-400">REACT.JS</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-emerald-400">MYSQL</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-red-400">HTML5</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-indigo-400">PYTHON</div>
 
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-pink-400">API INTEGRATION</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-teal-400">DATA PROCESSING</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-gray-400">CSV / JSON</div>
+<div class="skill-tag p-3 rounded-xl mono text-[11px] text-white">GIT / GITHUB</div>
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+</div>
 
-        window.addEventListener('resize', resize);
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
+</section>
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.2;
-                this.speedX = (Math.random() - 0.5) * 0.4;
-                this.speedY = (Math.random() - 0.5) * 0.4;
-            }
-          
-            draw() {
-                ctx.fillStyle = 'rgba(0, 242, 255, 0.2)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+<!-- PROJECTS -->
 
-        function init() {
-            resize();
-            for (let i = 0; i < 100; i++) particles.push(new Particle());
-        }
+<section class="mb-24">
 
-         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
+<h2 class="mono text-xs tracking-[0.4em] opacity-40 mb-10">
+PROJECT_ARCHIVES
+</h2>
 
-        init();
-        animate();
+<div class="grid md:grid-cols-3 gap-6">
 
-        document.querySelectorAll('.bento-card').forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                card.style.setProperty('--x', `${e.clientX - rect.left}px`);
-                card.style.setProperty('--y', `${e.clientY - rect.top}px`);
-            });
-        });
-    </script>
+<!-- HMI -->
+
+<div class="glass-panel p-8 rounded-2xl">
+
+<span class="project-badge">REAL TIME</span>
+
+<h3 class="text-xl font-bold mt-4 mb-2">
+HMI Analytics Dashboard
+</h3>
+
+<p class="text-sm text-slate-400 leading-relaxed">
+Developed a Human Machine Interface system to monitor machine data in real time.
+Implemented Python backend processing and JSON data communication
+with interactive dashboard visualization.
+</p>
+
+<p class="text-xs text-cyan-400 mt-4 mono">
+Python / JS / API
+</p>
+
+</div>
+
+<!-- WTS -->
+
+<div class="glass-panel p-8 rounded-2xl">
+
+<span class="project-badge">LIVE PROJECT</span>
+
+<h3 class="text-xl font-bold mt-4 mb-2">
+World Traveling System
+</h3>
+
+<p class="text-sm text-slate-400 leading-relaxed">
+Developed responsive travel booking modules with Laravel backend APIs.
+Managed booking database operations and user validation logic.
+</p>
+
+<p class="text-xs text-purple-400 mt-4 mono">
+PHP / Laravel / MySQL
+</p>
+
+</div>
+
+<!-- IMS -->
+
+<div class="glass-panel p-8 rounded-2xl">
+
+<span class="project-badge">JAVA SYSTEM</span>
+
+<h3 class="text-xl font-bold mt-4 mb-2">
+Interview Management System
+</h3>
+
+<p class="text-sm text-slate-400 leading-relaxed">
+Java based system for scheduling and managing interview processes.
+Optimized SQL queries improving system processing efficiency.
+</p>
+
+<p class="text-xs text-emerald-400 mt-4 mono">
+Java / SQL
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- EXPERIENCE -->
+
+<section class="mb-24">
+
+<h2 class="mono text-xs tracking-[0.4em] opacity-40 mb-10">
+PROFESSIONAL_LOGS
+</h2>
+
+<div class="space-y-10">
+
+<div>
+
+<p class="text-cyan-400 mono text-xs">
+DEC 2025 – MAR 2026
+</p>
+
+<h3 class="text-xl font-bold">
+Web Developer Intern
+</h3>
+
+<p class="text-slate-400 text-sm">
+Leometric Technology Pvt Ltd
+</p>
+
+<ul class="text-slate-400 text-sm mt-3 list-disc list-inside space-y-1">
+<li>Developed frontend and backend modules using HTML, CSS, JavaScript and Laravel.</li>
+<li>Integrated REST APIs and handled backend data processing.</li>
+<li>Optimized SQL queries and improved application performance.</li>
+<li>Debugged production issues and improved system reliability.</li>
+</ul>
+
+</div>
+
+<div>
+
+<p class="text-gray-400 mono text-xs">
+JUNE 2025 – OCT 2025
+</p>
+
+<h3 class="text-xl font-bold">
+Full Stack Developer Intern
+</h3>
+
+<p class="text-slate-400 text-sm">
+SETTribe IT Solutions Pvt Ltd
+</p>
+
+<ul class="text-slate-400 text-sm mt-3 list-disc list-inside space-y-1">
+<li>Built full-stack web modules using modern frameworks.</li>
+<li>Improved application load speed by 15-20%.</li>
+<li>Integrated REST APIs for backend services.</li>
+<li>Collaborated with teams to deliver features on schedule.</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="text-center">
+
+<h2 class="text-5xl font-black italic mb-10">
+INITIATE LINK
+</h2>
+
+<a href="mailto:ajaykore45@gmail.com"
+class="glass-panel px-12 py-6 rounded-xl inline-block hover:bg-cyan-400 hover:text-black transition">
+
+ajaykore45@gmail.com
+
+</a>
+
+<div class="flex justify-center gap-6 mt-8">
+
+<a href="https://github.com/ajaykore45" target="_blank">
+<i data-lucide="github"></i>
+</a>
+
+<a href="https://linkedin.com/in/ajay-kore" target="_blank">
+<i data-lucide="linkedin"></i>
+</a>
+
+<a href="https://www.hackerrank.com/profile/AJAY_KORE" target="_blank">
+<i data-lucide="code"></i>
+</a>
+
+</div>
+
+</section>
+
+</div>
+
+<script>
+lucide.createIcons()
+</script>
+
 </body>
 </html>
