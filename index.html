@@ -1,225 +1,248 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ajay Kore | Java Full Stack Developer</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&family=Inter:wght@400;900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
 
 :root{
---neon-blue:#00f2ff;
---neon-purple:#bc13fe;
---bg-dark:#050505;
+--neon:#00f2ff;
+--bg:#050505;
 }
 
 body{
-background-color:var(--bg-dark);
-color:#e2e8f0;
-font-family:'Inter',sans-serif;
-overflow-x:hidden;
+background:var(--bg);
+color:#e5e7eb;
+font-family:Inter;
 }
 
-.mono{font-family:'JetBrains Mono',monospace;}
+.mono{
+font-family:"JetBrains Mono",monospace;
+}
 
-.glass-panel{
-background:rgba(10,10,10,0.7);
+.glass{
+background:rgba(10,10,10,0.6);
 backdrop-filter:blur(12px);
-border:1px solid rgba(255,255,255,0.05);
-transition:all .3s;
+border:1px solid rgba(255,255,255,0.08);
+transition:0.3s;
 }
 
-.glass-panel:hover{
-border-color:rgba(0,242,255,0.3);
-box-shadow:0 0 30px rgba(0,242,255,0.05);
+.glass:hover{
+border-color:var(--neon);
+box-shadow:0 0 20px rgba(0,242,255,0.2);
 }
 
-.skill-tag{
-background:rgba(255,255,255,0.03);
-border:1px solid rgba(255,255,255,0.1);
-transition:.3s;
+.profile{
+width:260px;
+height:300px;
+border:2px solid rgba(0,242,255,0.4);
+box-shadow:0 0 25px rgba(0,242,255,0.3);
+clip-path:polygon(0 0,85% 0,100% 15%,100% 100%,15% 100%,0 85%);
+overflow:hidden;
 }
 
-.skill-tag:hover{
-background:rgba(0,242,255,0.1);
-border-color:var(--neon-blue);
-transform:translateY(-2px);
+.profile img{
+width:100%;
+height:100%;
+object-fit:cover;
+filter:grayscale(100%);
+transition:0.5s;
 }
 
-.project-badge{
-background:rgba(0,242,255,0.1);
-color:var(--neon-blue);
-font-size:9px;
-padding:2px 8px;
-border-radius:4px;
-border:1px solid rgba(0,242,255,0.2);
-font-family:'JetBrains Mono';
+.profile:hover img{
+filter:none;
+transform:scale(1.05);
+}
+
+.skill{
+border:1px solid rgba(255,255,255,0.08);
+padding:10px;
+border-radius:10px;
+font-size:12px;
+transition:0.3s;
+}
+
+.skill:hover{
+border-color:var(--neon);
+background:rgba(0,242,255,0.08);
+}
+
+.project{
+border:1px solid rgba(255,255,255,0.08);
+padding:25px;
+border-radius:18px;
+transition:0.3s;
+}
+
+.project:hover{
+border-color:var(--neon);
+transform:translateY(-5px);
 }
 
 </style>
 </head>
 
-<body class="antialiased">
+<body>
 
-<div class="max-w-7xl mx-auto px-6 py-20">
+<div class="max-w-7xl mx-auto px-6 py-16">
 
 <!-- HERO -->
 
-<section class="mb-24">
+<section class="grid md:grid-cols-2 gap-16 items-center mb-28">
 
-<p class="mono text-cyan-400 text-sm mb-6">
-SECURE_ACCESS: GRANTED // USER_ID: AJAY_S_KORE
+<div>
+
+<p class="mono text-cyan-400 text-sm mb-4">
+ACCESS GRANTED // USER: AJAY_KORE
 </p>
 
-<h1 class="text-6xl font-black mb-6 uppercase">
-JAVA FULL STACK <br>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 italic">
+<h1 class="text-6xl font-black mb-6">
+JAVA FULL STACK
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
 DEVELOPER
 </span>
 </h1>
 
-<p class="max-w-xl text-slate-400 leading-relaxed">
-Java Full Stack Developer focused on building scalable web applications, REST APIs,
-and data-driven backend systems. Experienced in React, API integrations,
-database optimization and automation using Python.
+<p class="text-gray-400 max-w-lg">
+Java Full Stack Developer passionate about building scalable web applications,
+REST APIs and automation tools. Experienced in React, backend systems,
+database optimization and API integrations.
 </p>
 
-<div class="flex gap-6 mt-10 mono text-xs">
+<div class="flex gap-4 mt-8">
 
-<div class="glass-panel px-6 py-3 rounded-full">
-<span class="text-cyan-400">MCA</span>
-PUNE UNIVERSITY
+<a href="Ajay_Kore_Resume.pdf"
+class="glass px-6 py-3 rounded-xl text-sm hover:bg-cyan-400 hover:text-black">
+Download Resume
+</a>
+
+<a href="mailto:ajaykore45@gmail.com"
+class="glass px-6 py-3 rounded-xl text-sm">
+Contact Me
+</a>
+
 </div>
 
-<div class="glass-panel px-6 py-3 rounded-full">
-<span class="text-purple-400">2026</span>
-GRADUATE
+</div>
+
+<div class="flex justify-center">
+
+<div class="profile">
+<img src="ak.jpg" alt="Ajay Kore">
 </div>
 
 </div>
 
 </section>
+
 
 <!-- SKILLS -->
 
-<section class="mb-24">
+<section class="mb-28">
 
-<h2 class="mono text-xs tracking-[0.4em] opacity-40 mb-10">
-CORE_TECH_STACK
+<h2 class="mono text-xs tracking-widest mb-10 text-gray-400">
+TECH STACK
 </h2>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="grid md:grid-cols-4 gap-4">
 
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-cyan-400">JAVA</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-blue-400">SPRING BOOT</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-purple-400">REST API</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-yellow-400">JAVASCRIPT</div>
+<div class="skill">Java</div>
+<div class="skill">Spring Boot</div>
+<div class="skill">REST API Development</div>
+<div class="skill">JavaScript</div>
 
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-orange-400">REACT.JS</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-emerald-400">MYSQL</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-red-400">HTML5</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-indigo-400">PYTHON</div>
+<div class="skill">React.js</div>
+<div class="skill">HTML5 / CSS3</div>
+<div class="skill">MySQL</div>
+<div class="skill">SQL Optimization</div>
 
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-pink-400">API INTEGRATION</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-teal-400">DATA PROCESSING</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-gray-400">CSV / JSON</div>
-<div class="skill-tag p-3 rounded-xl mono text-[11px] text-white">GIT / GITHUB</div>
+<div class="skill">Python</div>
+<div class="skill">API Integration</div>
+<div class="skill">JSON / CSV Processing</div>
+<div class="skill">Git & GitHub</div>
 
 </div>
 
 </section>
+
 
 <!-- PROJECTS -->
 
-<section class="mb-24">
+<section class="mb-28">
 
-<h2 class="mono text-xs tracking-[0.4em] opacity-40 mb-10">
-PROJECT_ARCHIVES
+<h2 class="mono text-xs tracking-widest mb-10 text-gray-400">
+PROJECT ARCHIVES
 </h2>
 
-<div class="grid md:grid-cols-3 gap-6">
+<div class="grid md:grid-cols-3 gap-8">
 
-<!-- HMI -->
-
-<div class="glass-panel p-8 rounded-2xl">
-
-<span class="project-badge">REAL TIME</span>
-
-<h3 class="text-xl font-bold mt-4 mb-2">
+<div class="project">
+<h3 class="text-xl font-bold mb-2">
 HMI Analytics Dashboard
 </h3>
 
-<p class="text-sm text-slate-400 leading-relaxed">
-Developed a Human Machine Interface system to monitor machine data in real time.
-Implemented Python backend processing and JSON data communication
-with interactive dashboard visualization.
+<p class="text-gray-400 text-sm">
+Real-time Human Machine Interface system used to monitor machine operations.
+Built interactive dashboard and backend data processing with JSON communication.
 </p>
 
-<p class="text-xs text-cyan-400 mt-4 mono">
-Python / JS / API
+<p class="text-cyan-400 mono text-xs mt-4">
+Python / JavaScript / API
 </p>
-
 </div>
 
-<!-- WTS -->
 
-<div class="glass-panel p-8 rounded-2xl">
-
-<span class="project-badge">LIVE PROJECT</span>
-
-<h3 class="text-xl font-bold mt-4 mb-2">
+<div class="project">
+<h3 class="text-xl font-bold mb-2">
 World Traveling System
 </h3>
 
-<p class="text-sm text-slate-400 leading-relaxed">
-Developed responsive travel booking modules with Laravel backend APIs.
-Managed booking database operations and user validation logic.
+<p class="text-gray-400 text-sm">
+Travel booking platform with dynamic UI, backend API integration and MySQL
+database management for booking operations.
 </p>
 
-<p class="text-xs text-purple-400 mt-4 mono">
-PHP / Laravel / MySQL
+<p class="text-purple-400 mono text-xs mt-4">
+PHP Laravel / MySQL
 </p>
-
 </div>
 
-<!-- IMS -->
 
-<div class="glass-panel p-8 rounded-2xl">
-
-<span class="project-badge">JAVA SYSTEM</span>
-
-<h3 class="text-xl font-bold mt-4 mb-2">
+<div class="project">
+<h3 class="text-xl font-bold mb-2">
 Interview Management System
 </h3>
 
-<p class="text-sm text-slate-400 leading-relaxed">
-Java based system for scheduling and managing interview processes.
-Optimized SQL queries improving system processing efficiency.
+<p class="text-gray-400 text-sm">
+Java-based application for managing interview schedules and candidate data
+with optimized SQL queries improving system performance.
 </p>
 
-<p class="text-xs text-emerald-400 mt-4 mono">
+<p class="text-emerald-400 mono text-xs mt-4">
 Java / SQL
 </p>
-
 </div>
 
 </div>
 
 </section>
 
+
 <!-- EXPERIENCE -->
 
-<section class="mb-24">
+<section class="mb-28">
 
-<h2 class="mono text-xs tracking-[0.4em] opacity-40 mb-10">
-PROFESSIONAL_LOGS
+<h2 class="mono text-xs tracking-widest mb-10 text-gray-400">
+EXPERIENCE
 </h2>
 
 <div class="space-y-10">
@@ -234,18 +257,19 @@ DEC 2025 – MAR 2026
 Web Developer Intern
 </h3>
 
-<p class="text-slate-400 text-sm">
+<p class="text-gray-400 text-sm">
 Leometric Technology Pvt Ltd
 </p>
 
-<ul class="text-slate-400 text-sm mt-3 list-disc list-inside space-y-1">
-<li>Developed frontend and backend modules using HTML, CSS, JavaScript and Laravel.</li>
-<li>Integrated REST APIs and handled backend data processing.</li>
-<li>Optimized SQL queries and improved application performance.</li>
-<li>Debugged production issues and improved system reliability.</li>
+<ul class="text-gray-400 text-sm mt-3 list-disc list-inside space-y-1">
+<li>Developed web modules using HTML, CSS, JavaScript and Laravel.</li>
+<li>Integrated REST APIs and backend data processing.</li>
+<li>Optimized SQL queries improving performance.</li>
+<li>Debugged application issues improving system reliability.</li>
 </ul>
 
 </div>
+
 
 <div>
 
@@ -257,15 +281,14 @@ JUNE 2025 – OCT 2025
 Full Stack Developer Intern
 </h3>
 
-<p class="text-slate-400 text-sm">
-SETTribe IT Solutions Pvt Ltd
+<p class="text-gray-400 text-sm">
+SETTribe IT Solutions
 </p>
 
-<ul class="text-slate-400 text-sm mt-3 list-disc list-inside space-y-1">
-<li>Built full-stack web modules using modern frameworks.</li>
-<li>Improved application load speed by 15-20%.</li>
-<li>Integrated REST APIs for backend services.</li>
-<li>Collaborated with teams to deliver features on schedule.</li>
+<ul class="text-gray-400 text-sm mt-3 list-disc list-inside space-y-1">
+<li>Built full stack modules and integrated backend services.</li>
+<li>Improved application load speed by 20%.</li>
+<li>Integrated APIs and improved platform stability.</li>
 </ul>
 
 </div>
@@ -274,32 +297,36 @@ SETTribe IT Solutions Pvt Ltd
 
 </section>
 
+
 <!-- CONTACT -->
 
 <section class="text-center">
 
-<h2 class="text-5xl font-black italic mb-10">
-INITIATE LINK
+<h2 class="text-5xl font-black mb-8">
+LET'S CONNECT
 </h2>
 
+<p class="text-gray-400 mb-8">
+Open to Java Full Stack Developer, Backend Developer
+and Implementation Engineer roles.
+</p>
+
 <a href="mailto:ajaykore45@gmail.com"
-class="glass-panel px-12 py-6 rounded-xl inline-block hover:bg-cyan-400 hover:text-black transition">
-
+class="glass px-10 py-4 rounded-xl hover:bg-cyan-400 hover:text-black">
 ajaykore45@gmail.com
-
 </a>
 
 <div class="flex justify-center gap-6 mt-8">
 
-<a href="https://github.com/ajaykore45" target="_blank">
+<a href="https://github.com/ajaykore45">
 <i data-lucide="github"></i>
 </a>
 
-<a href="https://linkedin.com/in/ajay-kore" target="_blank">
+<a href="https://linkedin.com/in/ajay-kore">
 <i data-lucide="linkedin"></i>
 </a>
 
-<a href="https://www.hackerrank.com/profile/AJAY_KORE" target="_blank">
+<a href="https://www.hackerrank.com/profile/AJAY_KORE">
 <i data-lucide="code"></i>
 </a>
 
@@ -315,3 +342,4 @@ lucide.createIcons()
 
 </body>
 </html>
+```
