@@ -1,310 +1,438 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajay Kore | Full Stack & AI Developer</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajay Kore — Java Full Stack Developer</title>
+<meta name="description" content="Ajay Kore, Java Full Stack Developer. Spring Boot, Hibernate, MySQL, REST APIs.">
 
-    <style>
-        :root {
-            --neon-cyan: #06b6d4;
-            --neon-blue: #3b82f6;
-            --bg-dark: #030712;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg-dark);
-            color: #f3f4f6;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+<style>
+  :root{
+    --bg:        #0B0F14;
+    --surface:   #121821;
+    --surface-2: #171F2A;
+    --border:    #232C39;
+    --text:      #E9EEF4;
+    --text-mute: #8592A3;
+    --text-dim:  #566072;
+    --amber:     #F2A93B;
+    --amber-dim: #B9832C;
+    --teal:      #3FD8BF;
+    --danger:    #E5637A;
+    --radius:    10px;
+  }
 
-        .mono {
-            font-family: "JetBrains Mono", monospace;
-        }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 600px at 85% -10%, rgba(63,216,191,0.07), transparent 60%),
+      radial-gradient(900px 500px at 5% 10%, rgba(242,169,59,0.06), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{ font-family:'Sora', sans-serif; letter-spacing:-0.02em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
 
-        /* Animated Background Blobs */
-        .bg-blob {
-            position: absolute;
-            filter: blur(120px);
-            z-index: -1;
-            opacity: 0.4;
-            animation: float 10s infinite alternate;
-        }
-        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(6,182,212,0.3) 0%, rgba(0,0,0,0) 70%); }
-        .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(0,0,0,0) 70%); animation-delay: -5s; }
+  a{ color:inherit; text-decoration:none; }
+  :focus-visible{ outline:2px solid var(--teal); outline-offset:3px; border-radius:4px; }
 
-        @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            100% { transform: translateY(30px) scale(1.1); }
-        }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
 
-        /* Premium Glassmorphism */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+  /* ---------- top bar ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,15,20,0.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo{ font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:15px; display:flex; align-items:center; gap:8px; }
+  .logo .dot{ width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal); }
+  .navlinks{ display:flex; gap:28px; font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-mute); }
+  .navlinks a:hover{ color:var(--amber); }
+  .navlinks span{ color:var(--text-dim); }
+  .hire-btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; font-weight:500;
+    padding:8px 16px; border:1px solid var(--border); border-radius:8px;
+    background:var(--surface); transition:.2s;
+  }
+  .hire-btn:hover{ border-color:var(--amber); color:var(--amber); }
+  @media (max-width:760px){ .navlinks{ display:none; } }
 
-        .glass-panel:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(6, 182, 212, 0.3);
-            box-shadow: 0 8px 32px 0 rgba(6, 182, 212, 0.15);
-            transform: translateY(-4px);
-        }
+  /* ---------- hero ---------- */
+  .hero{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px;
+    align-items:center; padding:88px 0 96px;
+  }
+  @media (max-width:900px){ .hero{ grid-template-columns:1fr; padding:56px 0 64px; gap:44px; } }
 
-        /* Profile Image Styling */
-        .profile-container {
-            position: relative;
-            width: 320px;
-            height: 380px;
-            border-radius: 24px;
-            padding: 1px;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-blue), transparent 60%);
-            box-shadow: 0 0 40px rgba(6, 182, 212, 0.2);
-        }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:12px; font-weight:500;
+    color:var(--teal); background:rgba(63,216,191,0.08); border:1px solid rgba(63,216,191,0.28);
+    padding:6px 12px; border-radius:100px; margin-bottom:22px;
+  }
+  .badge .pulse{ width:6px; height:6px; border-radius:50%; background:var(--teal); animation:pulse 2s infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1;} 50%{ opacity:.35;} }
+  @media (prefers-reduced-motion: reduce){ .badge .pulse{ animation:none; } }
 
-        .profile-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 23px;
-            overflow: hidden;
-            background: var(--bg-dark);
-        }
+  .hero h1{ font-size:52px; line-height:1.08; font-weight:800; margin:0 0 20px; color:var(--text); }
+  .hero h1 .accent{ color:var(--amber); }
+  @media (max-width:520px){ .hero h1{ font-size:38px; } }
 
-        .profile-inner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(80%) contrast(1.1);
-            transition: 0.6s ease;
-        }
+  .hero p.lede{ color:var(--text-mute); font-size:17px; line-height:1.7; max-width:520px; margin:0 0 32px; }
 
-        .profile-container:hover .profile-inner img {
-            filter: grayscale(0%) contrast(1);
-            transform: scale(1.05);
-        }
+  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; }
+  .btn-primary, .btn-secondary{
+    font-family:'IBM Plex Mono', monospace; font-size:13.5px; font-weight:500;
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 20px; border-radius:8px; transition:.2s;
+  }
+  .btn-primary{ background:var(--amber); color:#181205; font-weight:600; }
+  .btn-primary:hover{ background:#ffbb52; }
+  .btn-secondary{ border:1px solid var(--border); color:var(--text); }
+  .btn-secondary:hover{ border-color:var(--text-mute); background:var(--surface); }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
-    </style>
+  /* ---------- profile image ---------- */
+  .hero-right{ display:flex; flex-direction:column; gap:20px; }
+  .profile-card{
+    position:relative; border-radius:14px; padding:1px;
+    background:linear-gradient(135deg, var(--amber), var(--teal) 65%, transparent 100%);
+  }
+  .profile-inner{
+    border-radius:13px; overflow:hidden; background:var(--surface);
+    aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+  }
+  .profile-inner img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:grayscale(35%) contrast(1.05); transition:.5s ease;
+  }
+  .profile-card:hover .profile-inner img{ filter:grayscale(0%) contrast(1); }
+
+  /* ---------- console card ---------- */
+  .console{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    overflow:hidden; box-shadow:0 30px 60px -20px rgba(0,0,0,0.6);
+  }
+  .console-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px; border-bottom:1px solid var(--border); background:var(--surface-2);
+  }
+  .console-bar .d{ width:9px; height:9px; border-radius:50%; }
+  .console-bar .d1{ background:#E5637A; } .console-bar .d2{ background:#F2A93B; } .console-bar .d3{ background:#3FD8BF; }
+  .console-bar .title{ margin-left:8px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-dim); }
+
+  .console-req{
+    padding:16px 20px 0; font-family:'IBM Plex Mono', monospace; font-size:13px;
+  }
+  .method{ color:#0B0F14; background:var(--teal); font-weight:700; padding:2px 8px; border-radius:4px; font-size:11px; margin-right:8px; }
+  .status-ok{ color:var(--teal); }
+
+  .console-body{ padding:16px 20px 22px; font-family:'IBM Plex Mono', monospace; font-size:13px; line-height:1.85; color:var(--text-mute); }
+  .k{ color:#8FB6FF; } .s{ color:#B7E4A9; } .n{ color:var(--amber); } .b{ color:#F2A93B; }
+  .console-foot{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 20px; border-top:1px solid var(--border); background:var(--surface-2);
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-dim);
+  }
+
+  /* ---------- sections generic ---------- */
+  section{ padding:76px 0; border-top:1px solid var(--border); }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--amber);
+    display:flex; align-items:center; gap:12px; margin-bottom:36px;
+  }
+  .eyebrow .path{ color:var(--text-dim); }
+  .eyebrow::after{ content:""; flex:1; height:1px; background:var(--border); }
+
+  /* ---------- skills ---------- */
+  .skill-groups{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:820px){ .skill-groups{ grid-template-columns:1fr; } }
+  .skill-card{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; }
+  .skill-card h3{ font-size:14px; margin:0 0 4px; color:var(--text); }
+  .skill-card .route{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-dim); margin-bottom:16px; display:block; }
+  .pill-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-mute);
+    border:1px solid var(--border); padding:5px 10px; border-radius:6px; transition:.2s;
+  }
+  .skill-card:hover .pill{ }
+  .pill:hover{ border-color:var(--amber-dim); color:var(--amber); }
+
+  /* ---------- projects ---------- */
+  .project-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  @media (max-width:820px){ .project-grid{ grid-template-columns:1fr; } }
+  .project-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px; transition:.25s; display:flex; flex-direction:column; gap:14px;
+  }
+  .project-card:hover{ border-color:rgba(242,169,59,0.35); transform:translateY(-3px); }
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .status-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:600; letter-spacing:.03em;
+    padding:4px 9px; border-radius:5px; white-space:nowrap;
+  }
+  .tag-teal{ color:var(--teal); background:rgba(63,216,191,0.1); border:1px solid rgba(63,216,191,0.3); }
+  .tag-amber{ color:var(--amber); background:rgba(242,169,59,0.1); border:1px solid rgba(242,169,59,0.3); }
+  .project-card h3{ font-size:19px; margin:0; }
+  .project-card p{ color:var(--text-mute); font-size:14px; line-height:1.65; margin:0; }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:7px; margin-top:auto; }
+  .stack-chip{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-dim); border:1px solid var(--border); padding:3px 8px; border-radius:5px; }
+
+  /* ---------- education ---------- */
+  .edu-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:28px 30px; display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .edu-card .degree{ font-size:19px; font-weight:700; margin:0 0 6px; }
+  .edu-card .school{ color:var(--text-mute); font-size:14.5px; margin:0; }
+  .edu-card .meta{ text-align:right; font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--text-dim); }
+  .edu-card .gpa{ color:var(--teal); font-weight:600; }
+
+  /* ---------- contact ---------- */
+  .contact-box{
+    border:1px solid var(--border); border-radius:16px; padding:64px 40px; text-align:center;
+    background: radial-gradient(500px 220px at 50% 0%, rgba(242,169,59,0.06), transparent 70%), var(--surface);
+  }
+  .contact-box h2{ font-size:36px; margin:0 0 14px; }
+  .contact-box p{ color:var(--text-mute); max-width:480px; margin:0 auto 32px; font-size:15px; }
+  .email-cta{
+    display:inline-flex; align-items:center; gap:10px; font-family:'IBM Plex Mono', monospace;
+    font-size:15px; font-weight:600; background:var(--amber); color:#181205;
+    padding:14px 26px; border-radius:9px; transition:.2s;
+  }
+  .email-cta:hover{ background:#ffbb52; }
+  .social-row{ display:flex; justify-content:center; gap:14px; margin-top:30px; }
+  .social-row a{
+    width:42px; height:42px; border-radius:10px; border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; color:var(--text-mute); transition:.2s;
+  }
+  .social-row a:hover{ border-color:var(--teal); color:var(--teal); }
+
+  footer{ text-align:center; padding:32px 24px; color:var(--text-dim); font-family:'IBM Plex Mono', monospace; font-size:12px; border-top:1px solid var(--border); }
+</style>
 </head>
 
-<body class="relative min-h-screen selection:bg-cyan-500 selection:text-white">
+<body>
 
-    <div class="bg-blob blob-1"></div>
-    <div class="bg-blob blob-2"></div>
-
-    <nav class="fixed w-full top-0 z-50 glass-panel border-x-0 border-t-0 rounded-none !transform-none !bg-gray-950/50">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <span class="mono font-bold text-xl tracking-tighter text-white">AK<span class="text-cyan-400">.</span></span>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
-                <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-cyan-400 transition-colors">Projects</a>
-                <a href="#experience" class="hover:text-cyan-400 transition-colors">Experience</a>
-            </div>
-            <a href="mailto:ajaykore45@gmail.com" class="px-5 py-2.5 rounded-lg text-sm font-semibold bg-white/10 hover:bg-cyan-500 hover:text-white transition-all border border-white/10">
-                Hire Me
-            </a>
-        </div>
+<header>
+  <div class="wrap nav">
+    <div class="logo"><span class="dot"></span>ajay<span style="color:var(--text-dim)">.kore</span></div>
+    <nav class="navlinks">
+      <a href="#skills"><span>/</span>skills</a>
+      <a href="#projects"><span>/</span>projects</a>
+      <a href="#education"><span>/</span>education</a>
+      <a href="#contact"><span>/</span>contact</a>
     </nav>
+    <a href="mailto:ajaykore45@gmail.com" class="hire-btn">Get in touch</a>
+  </div>
+</header>
 
-    <main class="max-w-7xl mx-auto px-6 pt-32 pb-16">
+<main class="wrap">
 
-        <section id="about" class="grid lg:grid-cols-2 gap-16 items-center min-h-[75vh] mb-32">
-            <div class="order-2 lg:order-1 flex flex-col items-start">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel !transform-none mb-6 border-cyan-500/30">
-                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                    <span class="mono text-cyan-400 text-xs font-semibold tracking-wider">AVAILABLE FOR WORK</span>
-                </div>
-                
-                <h1 class="text-5xl lg:text-7xl font-black mb-6 leading-[1.1] tracking-tight text-white">
-                    Full Stack & 
-                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
-                        AI Developer.
-                    </span>
-                </h1>
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div>
+      <div class="badge"><span class="pulse"></span>OPEN TO WORK</div>
+      <h1>Java Full&nbsp;Stack<br>Developer, built on<br><span class="accent">Spring&nbsp;Boot.</span></h1>
+      <p class="lede">
+        I design and build backend systems and full-stack applications with Java, Spring Boot, Hibernate,
+        and MySQL — from REST APIs to the interfaces that consume them. Strong in OOP, data structures,
+        and writing code that's easy to hand off.
+      </p>
+      <div class="cta-row">
+        <a href="mailto:ajaykore45@gmail.com" class="btn-primary">Email me →</a>
+        <a href="https://github.com/ajaykore45" target="_blank" class="btn-secondary">GitHub</a>
+        <a href="https://www.linkedin.com/in/ajay-kore-23767a258/" target="_blank" class="btn-secondary">LinkedIn</a>
+      </div>
+    </div>
 
-                <p class="text-gray-400 text-lg max-w-lg mb-8 leading-relaxed">
-                    I build scalable enterprise web applications, data-driven dashboards, and seamless API integrations. Experienced in modern backend architectures and orchestrating LLMs for real-world functionality.
-                </p>
+    <div class="hero-right">
+    <div class="profile-card">
+      <div class="profile-inner">
+        <img src="ak.jpg" alt="Ajay Kore"
+             onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=Ajay+Kore&background=121821&color=F2A93B&size=480&font-size=0.36&bold=true';">
+      </div>
+    </div>
 
-                <div class="flex flex-wrap gap-4">
-                    <a href="Ajay_Kore_Resume.pdf" class="flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(6,182,212,0.3)]">
-                        <i data-lucide="download" class="w-4 h-4"></i>
-                        Download Resume
-                    </a>
-                    <a href="https://github.com/KoreAjay" target="_blank" class="flex items-center gap-2 glass-panel px-7 py-3.5 rounded-xl font-semibold text-gray-300 hover:text-white">
-                        <i data-lucide="github" class="w-4 h-4"></i>
-                        GitHub
-                    </a>
-                </div>
-            </div>
+    <div class="console">
+      <div class="console-bar">
+        <span class="d d1"></span><span class="d d2"></span><span class="d d3"></span>
+        <span class="title">profile.json</span>
+      </div>
+      <div class="console-req">
+        <span class="method">GET</span><span>/ajay-kore</span>
+        <div style="margin-top:10px; color:var(--text-dim);">→ <span class="status-ok">200 OK</span> · 84ms</div>
+      </div>
+      <div class="console-body">
+&#123;<br>
+&nbsp;&nbsp;<span class="k">"name"</span>: <span class="s">"Ajay Kore"</span>,<br>
+&nbsp;&nbsp;<span class="k">"role"</span>: <span class="s">"Java Full Stack Developer"</span>,<br>
+&nbsp;&nbsp;<span class="k">"location"</span>: <span class="s">"Pune, India"</span>,<br>
+&nbsp;&nbsp;<span class="k">"stack"</span>: [<span class="s">"Java"</span>, <span class="s">"Spring Boot"</span>, <span class="s">"Hibernate"</span>, <span class="s">"MySQL"</span>],<br>
+&nbsp;&nbsp;<span class="k">"status"</span>: <span class="n">"available"</span>,<br>
+&nbsp;&nbsp;<span class="k">"response_time"</span>: <span class="s">"&lt; 24h"</span><br>
+&#125;
+      </div>
+      <div class="console-foot">
+        <span>Content-Type: application/json</span>
+        <span>Cache: no-store</span>
+      </div>
+    </div>
+    </div>
+  </section>
 
-            <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
-                <div class="profile-container">
-                    <div class="profile-inner">
-                        <img src="ak.jpg" alt="Ajay Kore" onerror="this.src='https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800'">
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="eyebrow"><span class="path">/skills</span></div>
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>Core &amp; Language</h3>
+        <span class="route">GET /skills/core</span>
+        <div class="pill-row">
+          <span class="pill">Java</span><span class="pill">SQL</span><span class="pill">OOP</span>
+          <span class="pill">Data Structures &amp; Algorithms</span><span class="pill">Multithreading</span>
+          <span class="pill">Exception Handling</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Backend &amp; Frameworks</h3>
+        <span class="route">GET /skills/backend</span>
+        <div class="pill-row">
+          <span class="pill">Spring</span><span class="pill">Spring Boot</span><span class="pill">Hibernate</span>
+          <span class="pill">JDBC</span><span class="pill">RESTful APIs</span><span class="pill">MVC Architecture</span>
+          <span class="pill">PHP · Laravel</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data &amp; Tooling</h3>
+        <span class="route">GET /skills/tools</span>
+        <div class="pill-row">
+          <span class="pill">MySQL</span><span class="pill">Maven</span><span class="pill">Git &amp; GitHub</span>
+          <span class="pill">Postman</span><span class="pill">Eclipse / STS</span><span class="pill">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <section id="skills" class="mb-32 scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="mono text-sm font-bold tracking-widest text-cyan-400 uppercase">Tech Stack</h2>
-                <div class="h-px bg-white/10 flex-grow"></div>
-            </div>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="eyebrow"><span class="path">/projects</span></div>
+    <div class="project-grid">
 
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="coffee" class="w-6 h-6 text-orange-400"></i> Java / Spring Boot
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="file-code-2" class="w-6 h-6 text-blue-400"></i> PHP / Laravel
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="terminal" class="w-6 h-6 text-yellow-400"></i> Python / Streamlit
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="bot" class="w-6 h-6 text-purple-400"></i> Gemini / Groq APIs
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="blocks" class="w-6 h-6 text-cyan-400"></i> React.js
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="database" class="w-6 h-6 text-emerald-400"></i> MySQL & SQL Opt.
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="network" class="w-6 h-6 text-rose-400"></i> REST API Dev
-                </div>
-                <div class="glass-panel px-4 py-4 rounded-xl text-center font-medium text-sm text-gray-300 flex flex-col items-center gap-2">
-                    <i data-lucide="bar-chart-3" class="w-6 h-6 text-indigo-400"></i> Data Analytics
-                </div>
-            </div>
-        </section>
+      <div class="project-card">
+        <div class="project-top">
+          <h3>E-Commerce Management System</h3>
+          <span class="status-tag tag-teal">CORE PROJECT</span>
+        </div>
+        <p>
+          Full-stack application handling product, user, and order management. Designed RESTful APIs,
+          modeled the MySQL schema, and implemented authentication and CRUD flows with Hibernate/JPA
+          under MVC architecture.
+        </p>
+        <div class="stack-row">
+          <span class="stack-chip">Java</span><span class="stack-chip">Spring Boot</span>
+          <span class="stack-chip">Hibernate</span><span class="stack-chip">MySQL</span>
+        </div>
+      </div>
 
-        <section id="projects" class="mb-32 scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="mono text-sm font-bold tracking-widest text-cyan-400 uppercase">Project Archives</h2>
-                <div class="h-px bg-white/10 flex-grow"></div>
-            </div>
+      <div class="project-card">
+        <div class="project-top">
+          <h3>Recruitment Management System</h3>
+          <span class="status-tag tag-amber">JAVA · SQL</span>
+        </div>
+        <p>
+          Application for candidate tracking, profile management, and interview scheduling, backed by
+          a heavily optimized SQL schema for fast lookups under load.
+        </p>
+        <div class="stack-row">
+          <span class="stack-chip">Java</span><span class="stack-chip">Spring Boot</span>
+          <span class="stack-chip">SQL</span>
+        </div>
+      </div>
 
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="glass-panel p-8 rounded-2xl flex flex-col h-full group">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-3 bg-cyan-500/10 rounded-lg text-cyan-400">
-                            <i data-lucide="activity" class="w-6 h-6"></i>
-                        </div>
-                        <a href="#" class="text-gray-500 hover:text-cyan-400 transition-colors">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-cyan-400 transition-colors">HMI Analytics Workbench</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                        Industrial dashboard for analyzing telemetry data from multiple CSV streams. Features real-time JSON communication, anomaly detection, and AI-driven insights for machine operations.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">Python</span>
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">Streamlit</span>
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">LLM APIs</span>
-                    </div>
-                </div>
+      <div class="project-card">
+        <div class="project-top">
+          <h3>HMI Analytics Workbench</h3>
+          <span class="status-tag tag-teal">DATA · AI</span>
+        </div>
+        <p>
+          Dashboard for analyzing telemetry data from multiple CSV streams, with real-time JSON
+          ingestion, anomaly detection, and LLM-assisted insight generation for machine operations.
+        </p>
+        <div class="stack-row">
+          <span class="stack-chip">Python</span><span class="stack-chip">Streamlit</span>
+          <span class="stack-chip">LLM APIs</span>
+        </div>
+      </div>
 
-                <div class="glass-panel p-8 rounded-2xl flex flex-col h-full group">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-3 bg-blue-500/10 rounded-lg text-blue-400">
-                            <i data-lucide="users" class="w-6 h-6"></i>
-                        </div>
-                        <a href="#" class="text-gray-500 hover:text-blue-400 transition-colors">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">Recruitment Management System</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                        Enterprise Java application streamlining candidate tracking, profile management, and interview scheduling. Built with heavily optimized SQL database schemas for high performance.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">Java</span>
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">SQL</span>
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">Spring Boot</span>
-                    </div>
-                </div>
+      <div class="project-card">
+        <div class="project-top">
+          <h3>World Traveling System</h3>
+          <span class="status-tag tag-amber">FULL STACK</span>
+        </div>
+        <p>
+          Travel booking platform with a dynamic front end, REST API integration, and a secure MySQL
+          layer handling booking and user operations end to end.
+        </p>
+        <div class="stack-row">
+          <span class="stack-chip">PHP · Laravel</span><span class="stack-chip">MySQL</span>
+          <span class="stack-chip">REST APIs</span>
+        </div>
+      </div>
 
-                <div class="glass-panel p-8 rounded-2xl flex flex-col h-full group">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400">
-                            <i data-lucide="plane" class="w-6 h-6"></i>
-                        </div>
-                        <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors">
-                            <i data-lucide="external-link" class="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors">World Traveling System</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
-                        A full-scale travel booking platform with a dynamic user interface. Includes robust backend API integration and secure MySQL database management for user booking operations.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">PHP Laravel</span>
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">MySQL</span>
-                        <span class="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mono">REST APIs</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    </div>
+  </section>
 
-        <section id="experience" class="mb-32 scroll-mt-24">
-            <div class="flex items-center gap-4 mb-10">
-                <h2 class="mono text-sm font-bold tracking-widest text-cyan-400 uppercase">Experience</h2>
-                <div class="h-px bg-white/10 flex-grow"></div>
-            </div>
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="eyebrow"><span class="path">/education</span></div>
+    <div class="edu-card">
+      <div>
+        <p class="degree">Bachelor of Computer Applications (BCA)</p>
+        <p class="school">Dnyansagar Arts &amp; Commerce College, Pune</p>
+      </div>
+      <div class="meta">
+        Graduated July 2023<br>
+        <span class="gpa">CGPA 8.5</span>
+      </div>
+    </div>
+  </section>
 
-           
-        <section class="text-center py-16 px-6 glass-panel rounded-3xl relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-cyan-900/10 z-0"></div>
-            <div class="relative z-10">
-                <h2 class="text-4xl md:text-5xl font-black mb-6 text-white tracking-tight">Let's Build Together</h2>
-                <p class="text-gray-400 mb-10 max-w-xl mx-auto text-sm md:text-base">
-                    Currently open to Java Full Stack Developer, Backend Developer, and Implementation Engineer roles. Let's discuss how my skills can bring value to your team.
-                </p>
-                
-                <a href="mailto:ajaykore45@gmail.com" class="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold bg-white text-gray-900 hover:bg-cyan-400 hover:text-gray-900 transition-all shadow-lg hover:shadow-cyan-500/25 mb-10">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
-                    ajaykore45@gmail.com
-                </a>
+  <!-- CONTACT -->
+  <section id="contact" style="padding-bottom:96px;">
+    <div class="contact-box">
+      <h2>Let's build something.</h2>
+      <p>
+        Open to Java Full Stack Developer, Backend Developer, and Implementation Engineer roles.
+        Reach out and let's talk about how I can help your team ship.
+      </p>
+      <a href="mailto:ajaykore45@gmail.com" class="email-cta">✉ ajaykore45@gmail.com</a>
+      <div class="social-row">
+        <a href="https://github.com/ajaykore45" target="_blank" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/ajay-kore-23767a258/" target="_blank" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9h4v2a4 4 0 0 1 4-2c3 0 4 2 4 5v7h-4v-6c0-1.5-.5-3-2-3s-2 1.5-2 3v6h-4z"/></svg>
+        </a>
+        <a href="tel:" aria-label="Phone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
-                <div class="flex justify-center gap-6">
-                    <a href="https://github.com/ajaykore45" class="p-3 glass-panel rounded-full hover:bg-white/10 hover:text-white text-gray-400 transition-all" aria-label="GitHub">
-                        <i data-lucide="github" class="w-6 h-6"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/ajay-kore" class="p-3 glass-panel rounded-full hover:bg-blue-500 hover:text-white text-gray-400 transition-all border-none" aria-label="LinkedIn">
-                        <i data-lucide="linkedin" class="w-6 h-6"></i>
-                    </a>
-                   
-                </div>
-            </div>
-        </section>
+</main>
 
-    </main>
+<footer>© 2026 Ajay Kore · Pune, India</footer>
 
-    <footer class="text-center py-8 text-xs text-gray-600 mono">
-        <p>&copy; 2026 Ajay Kore. Designed with precision.</p>
-    </footer>
-
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-    </script>
 </body>
 </html>
